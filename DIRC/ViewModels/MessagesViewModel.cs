@@ -42,17 +42,18 @@ namespace DIRC.ViewModels {
 				await client.Connect();
 				message = "Connected";
 				await Send();
-			} catch (Exception e) {
-				messages.Insert(0, "Crashed: " + e.Message);
+			} catch (Exception ex) {
+				ShowMessage("!Init!: " + ex.Message);
 			}
 		}
 
+		// TODO: ?!?!?!?!?!??! TO feilmeldinger...
 		async Task Send() {
 			try {
 				ShowMessage(message);
 				await client.Send(userName, "message");		
 			} catch (Exception ex) {
-				messages.Insert(0, "Crashed: " + ex.Message);
+				ShowMessage("!Send!: " + ex.Message);
 			}
 		}
 
