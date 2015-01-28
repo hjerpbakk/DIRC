@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="dirc.dips" android:versionCode="1" android:versionName="First">
-	<uses-sdk android:minSdkVersion="15" />
-	<application android:label="DIRC" android:icon="@drawable/icon">
-	</application>
-	<uses-permission android:name="android.permission.INTERNET" />
-</manifest>
