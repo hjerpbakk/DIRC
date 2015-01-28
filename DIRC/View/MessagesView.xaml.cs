@@ -10,7 +10,7 @@ namespace DIRC.View {
 
 		public MessagesView(string userName) {
 			InitializeComponent();
-			BindingContext = new MessagesViewModel(userName);
+			BindingContext = vm = new MessagesViewModel(userName);
 			NavigationPage.SetHasBackButton (this, false);
 		}
 

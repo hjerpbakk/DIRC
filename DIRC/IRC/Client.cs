@@ -28,8 +28,6 @@ namespace DIRC.IRC {
 					if (OnMessageReceived != null)
 						OnMessageReceived(this, message);
 				});
-
-			await Send("Connected");
 		}
 
 		public Task Send(string userName, string message)
