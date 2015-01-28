@@ -65,7 +65,7 @@ namespace DIRC.ViewModels {
 		async Task Send() {
 			try {
 				ShowMessage(message);
-				await client.Send(userName, "message");		
+				await client.Send(userName, message);		
 			} catch (Exception ex) {
 				ShowMessage("!Send!: " + ex.Message);
 			}
