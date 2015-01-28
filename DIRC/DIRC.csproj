@@ -56,11 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\" />
-<<<<<<< HEAD
     <Folder Include="Resources\" />
-=======
     <Folder Include="ViewModels\" />
->>>>>>> milestone1
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="View\MessagesView.xaml">
