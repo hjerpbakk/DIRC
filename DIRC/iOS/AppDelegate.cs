@@ -11,7 +11,7 @@ namespace DIRC.iOS {
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options) {
 			global::Xamarin.Forms.Forms.Init();
 
-			LoadApplication(new App());
+			LoadApplication(new DIRC.App());
 
 			return base.FinishedLaunching(app, options);
 		}

@@ -3,18 +3,26 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
+using DIRC.IRC;
+using System.Threading.Tasks;
+using DIRC.View;
 
 namespace DIRC.ViewModels {
 	public class MessagesViewModel : ViewModelBase {
 		readonly string userName;
 		readonly Command sendCommand;
 		readonly ObservableCollection<string> messages;
+		readonly Client client;
+		readonly INavigation navigation;
 
 		string message;
+		string selectedMessage;
 
-		public MessagesViewModel(string userName) {
+		public MessagesViewModel(INavigation navigation, string userName) {
+			this.navigation = navigation;
 			this.userName = userName;
-			sendCommand = new Command(Send);
+			client = new Client();
+			sendCommand = new Command(() => Send());
 			messages = new ObservableCollection<string>();
 		}
 
@@ -30,10 +38,46 @@ namespace DIRC.ViewModels {
 			}
 		}
 
+		public string SelectedMessage {
+			get { return selectedMessage; }
+			set {
+				selectedMessage = value;
+				OnPropertyChanged();
+				if (!string.IsNullOrEmpty(selectedMessage)) {
+					navigation.PushAsync(new MessageView(selectedMessage));	 
+				}
+			}
+		}
+
 		public Command SendCommand { get { return sendCommand; } }
 
-		void Send() {
-			messages.Insert(0, userName + ": " + message);
+		public async Task Init() {
+			try {
+				client.OnMessageReceived += HandleOnMessageReceived;
+				await client.Connect();
+				message = "Connected";
+				await Send();
+			} catch (Exception ex) {
+				ShowMessage("!Init!: " + ex.Message);
+			}
+		}
+			
+		async Task Send() {
+			try {
+				ShowMessage(message);
+				await client.Send(userName, message);		
+			} catch (Exception ex) {
+				ShowMessage("!Send!: " + ex.Message);
+			}
+		}
+
+		void ShowMessage(string theMessage) {
+			messages.Add(theMessage);
+		}
+
+		void HandleOnMessageReceived (object sender, string theMessage)
+		{
+			ShowMessage(theMessage);
 		}
 	}
 }
