@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DIRC", "DIRC.csproj", "{875
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DIRC.iOS", "iOS\DIRC.iOS.csproj", "{56782836-8EFE-40D3-847E-C95B678EB35E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DIRC.Droid", "..\..\..\DIRCdroid\Droid\DIRC.Droid.csproj", "{0C0AC887-A6FC-4962-B0DB-F14E24108652}"
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "DIRC.Droid", "..\..\..\DIRCdroid\Droid\DIRC.Droid.csproj", "{0C0AC887-A6FC-4962-B0DB-F14E24108652}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
