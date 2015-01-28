@@ -67,6 +67,6 @@
     <EmbeddedResource Include="View\LogonView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DIRC-logo-raud.png" />
+    <EmbeddedResource Include="Resources\dirc.png" />
   </ItemGroup>
 </Project>
