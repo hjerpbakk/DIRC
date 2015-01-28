@@ -3,9 +3,10 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using DIRC.View;
+using DIRC.ViewModels;
 
 namespace DIRC {
-	public class LogonViewModel : INotifyPropertyChanged {
+	public class LogonViewModel : ViewModelBase {
 		readonly Command logonCommand;
 		readonly INavigation navigation;
 
@@ -36,8 +37,6 @@ namespace DIRC {
 
 		public Command LogonCommand { get { return logonCommand; } }
 
-	    public event PropertyChangedEventHandler PropertyChanged;
-
 		async void Logon() {
 			if (!String.IsNullOrEmpty (UserName)) {
 				await navigation.PushAsync (new MessagesView (userName));
@@ -45,15 +44,6 @@ namespace DIRC {
 
 			}
 		}
-
-	    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-	    {
-	        var handler = PropertyChanged;
-	        if (handler != null)
-	        {
-	            handler(this, new PropertyChangedEventArgs(propertyName));
-	        }
-	    }
 	}
 }
 
