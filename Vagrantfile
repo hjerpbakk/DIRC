@@ -7,10 +7,10 @@ Vagrant::Config.run do |config|
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
   config.vm.provision :shell, :inline => "sudo apt-get update"
   config.vm.provision :shell, :inline => "sudo apt-get install curl -y"
-  config.vm.provision :shell, :inline => "sudo apt-get install vim -y"
-  config.vm.provision :shell, :inline => "sudo apt-get install mono-complete -y"  
-
+  
   config.vm.provision :shell, :inline => "curl -s https://get.docker.io/ubuntu/ | sudo sh > /dev/null 2>&1"
+
+  config.vm.provision :shell, :inline => "/vagrant/buildAndDeploySignalRHub"
 
   config.vm.forward_port 8080, 8080 
 end
