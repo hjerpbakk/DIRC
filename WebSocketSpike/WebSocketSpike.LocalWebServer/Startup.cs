@@ -17,7 +17,7 @@ namespace WebSocketSpike.LocalWebServer
                     // configure the set of origins and/or http verbs by
                     // providing a CORS options with a different policy.
                     // CORS = Cross Origin Resource Sharing
-                    map.UseCors(CorsOptions.AllowAll);
+                    //map.UseCors(CorsOptions.AllowAll);
 
                     var hubConfiguration = new HubConfiguration
                     {
