@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using System.Collections.ObjectModel;
 using DIRC.IRC;
 using System.Threading.Tasks;
+using DIRC.View;
 
 namespace DIRC.ViewModels {
 	public class MessagesViewModel : ViewModelBase {
@@ -12,10 +13,13 @@ namespace DIRC.ViewModels {
 		readonly Command sendCommand;
 		readonly ObservableCollection<string> messages;
 		readonly Client client;
+		readonly INavigation navigation;
 
 		string message;
+		string selectedMessage;
 
-		public MessagesViewModel(string userName) {
+		public MessagesViewModel(INavigation navigation, string userName) {
+			this.navigation = navigation;
 			this.userName = userName;
 			client = new Client();
 			sendCommand = new Command(() => Send());
@@ -34,6 +38,17 @@ namespace DIRC.ViewModels {
 			}
 		}
 
+		public string SelectedMessage {
+			get { return selectedMessage; }
+			set {
+				selectedMessage = value;
+				OnPropertyChanged();
+				if (!string.IsNullOrEmpty(selectedMessage)) {
+					navigation.PushAsync(new MessageView(selectedMessage));	 
+				}
+			}
+		}
+
 		public Command SendCommand { get { return sendCommand; } }
 
 		public async Task Init() {
@@ -46,8 +61,7 @@ namespace DIRC.ViewModels {
 				ShowMessage("!Init!: " + ex.Message);
 			}
 		}
-
-		// TODO: ?!?!?!?!?!??! TO feilmeldinger...
+			
 		async Task Send() {
 			try {
 				ShowMessage(message);
@@ -58,7 +72,7 @@ namespace DIRC.ViewModels {
 		}
 
 		void ShowMessage(string theMessage) {
-			messages.Insert(0, theMessage);
+			messages.Add(theMessage);
 		}
 
 		void HandleOnMessageReceived (object sender, string theMessage)
