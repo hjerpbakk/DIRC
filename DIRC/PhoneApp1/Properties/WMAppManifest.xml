@@ -2,7 +2,7 @@
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
   <App xmlns="" ProductID="{f3e71ba8-ed25-4628-a9b2-07a74b87a53f}" Title="DIRC" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="PhoneApp1 author" Description="Sample description" Publisher="PhoneApp1" PublisherID="{b4827f34-afc5-42da-b433-f5fe845fcc24}">
-    <IconPath IsRelative="true" IsResource="false">Icon-76@2x.png</IconPath>
+    <IconPath IsRelative="true" IsResource="false">iTunesArtwork@2x.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
