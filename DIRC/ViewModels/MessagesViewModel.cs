@@ -18,7 +18,7 @@ namespace DIRC.ViewModels {
 		public MessagesViewModel(string userName) {
 			this.userName = userName;
 			client = new Client();
-			sendCommand = new Command(Send);
+			sendCommand = new Command(() => Send());
 			messages = new ObservableCollection<string>();
 		}
 
@@ -37,12 +37,32 @@ namespace DIRC.ViewModels {
 		public Command SendCommand { get { return sendCommand; } }
 
 		public async Task Init() {
-
-
+			try {
+				client.OnMessageReceived += HandleOnMessageReceived;
+				await client.Connect();
+				message = "Connected";
+				await Send();
+			} catch (Exception e) {
+				messages.Insert(0, "Crashed: " + e.Message);
+			}
 		}
 
-		void Send() {
-			messages.Insert(0, userName + ": " + message);
+		async Task Send() {
+			try {
+				ShowMessage(message);
+				await client.Send(userName, "message");		
+			} catch (Exception ex) {
+				messages.Insert(0, "Crashed: " + ex.Message);
+			}
+		}
+
+		void ShowMessage(string theMessage) {
+			messages.Insert(0, theMessage);
+		}
+
+		void HandleOnMessageReceived (object sender, string theMessage)
+		{
+			ShowMessage(theMessage);
 		}
 	}
 }
