@@ -29,7 +29,7 @@ namespace DIRC {
 	    public event PropertyChangedEventHandler PropertyChanged;
 
 		async void Logon() {
-			await navigation.PushAsync(new MessagesView());
+			await navigation.PushAsync(new MessagesView(userName));
 		}
 
 	    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

@@ -9,6 +9,7 @@ namespace DIRC.View {
 			InitializeComponent();
 			BindingContext = new LogonViewModel(Navigation);
 			NavigationPage.SetHasNavigationBar(this, false);
+			NavigationPage.SetHasBackButton(this, false);
 		}
 	}
 }
