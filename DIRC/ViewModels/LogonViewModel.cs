@@ -38,10 +38,8 @@ namespace DIRC {
 		public Command LogonCommand { get { return logonCommand; } }
 
 		async void Logon() {
-			if (!String.IsNullOrEmpty (UserName)) {
+			if (!String.IsNullOrEmpty(UserName)) {
 				await navigation.PushAsync (new MessagesView (userName));
-			} else {
-
 			}
 		}
 	}

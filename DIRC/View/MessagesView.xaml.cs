@@ -10,8 +10,8 @@ namespace DIRC.View {
 
 		public MessagesView(string userName) {
 			InitializeComponent();
-			BindingContext = vm = new MessagesViewModel(userName);
-			NavigationPage.SetHasBackButton (this, false);
+			BindingContext = vm = new MessagesViewModel(Navigation, userName);
+			NavigationPage.SetHasBackButton(this, false);
 		}
 
 		protected override async void OnAppearing ()

@@ -8,9 +8,7 @@
 			<RowDefinition Height="*" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-		<StackLayout x:Name="Messages">
-			
-		</StackLayout>
+		<ListView ItemsSource="{Binding Messages}" SelectedItem="{Binding SelectedMessage}" />
 		<StackLayout Grid.Row="1" Padding="10" Orientation="Horizontal">
 			<Entry Text="{Binding Message}" HorizontalOptions="FillAndExpand" />
 			<Button Text="Send" Command="{Binding SendCommand}" HorizontalOptions="End" />
