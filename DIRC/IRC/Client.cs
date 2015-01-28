@@ -15,7 +15,7 @@ namespace DIRC.IRC {
 		public Client()
 		{
 			_platform = Device.OS.ToString();
-			_connection = new HubConnection("http://192.168.1.103");
+			_connection = new HubConnection("http://10.0.105.203:8080");
 			_proxy = _connection.CreateHubProxy("Chat");
 		}
 
