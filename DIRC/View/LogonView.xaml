@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	x:Class="DIRC.View.LogonView">
+	<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+		</Grid>
+		<Entry Text="{Binding UserName}" VerticalOptions="Center" />
+		<Button Grid.Row="1" Text="Logon" Command=" {Binding LogonCommand}" VerticalOptions="CenterAndExpand" />
+</ContentPage>
