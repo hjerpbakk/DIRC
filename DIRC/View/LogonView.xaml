@@ -3,7 +3,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 	x:Class="DIRC.View.LogonView">
 	 <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10">
-		<Image Source="DIRC-logo-raud.png" />
+		<Image Source="dirc.png" />
 		<Entry Text="{Binding UserName}" Placeholder="Username" />
 		<Button Text="Logon" Command=" {Binding LogonCommand}" VerticalOptions="CenterAndExpand" />
 	</StackLayout>
