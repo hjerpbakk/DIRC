@@ -9,6 +9,11 @@ namespace ConsoleSignalRServer
             Clients.All.hello();
         }
 
+        public void SendDIRCMessage(string message)
+        {
+            Clients.All.broadcastDIRCMessage(message);
+        }
+
         public void Send(string name, string message)
         {
             // Call the broadcastMessage method to update clients.
