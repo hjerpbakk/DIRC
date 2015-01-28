@@ -12,9 +12,14 @@ namespace WebSocketSpike.LocalWebServer
             Clients.Others.broadcastMessage(message);
         }
 
+        public void SendDIRCMessage(string message)
+        {
+            Console.WriteLine("DIRC message \"{0}\" from {1} to others.", message, Context.ConnectionId);
+            Clients.Others.broadcastDIRCMessage(message);
+        }
+
         public override Task OnConnected()
         {
-            
             Console.WriteLine("Connection from {0}", Context.ConnectionId);
             Clients.Caller.broadcastMessage(new Message { Text = "Welcome. Your connectionId is " + Context.ConnectionId });
             return base.OnConnected();
