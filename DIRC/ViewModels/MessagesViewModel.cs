@@ -1,26 +1,39 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Xamarin.Forms;
+using System.Collections.ObjectModel;
 
 namespace DIRC.ViewModels {
-	public class MessagesViewModel : INotifyPropertyChanged {
-		readonly string title;
+	public class MessagesViewModel : ViewModelBase {
+		readonly string userName;
+		readonly Command sendCommand;
+		readonly ObservableCollection<string> messages;
+
+		string message;
 
 		public MessagesViewModel(string userName) {
-			title = userName;
+			this.userName = userName;
+			sendCommand = new Command(Send);
+			messages = new ObservableCollection<string>();
 		}
 
-		public string Title { get { return title; } }
+		public string Title { get { return userName; } }
 
-		public event PropertyChangedEventHandler PropertyChanged;
+		public ObservableCollection<string> Messages { get { return messages; } }
 
-		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-		{
-			var handler = PropertyChanged;
-			if (handler != null)
-			{
-				handler(this, new PropertyChangedEventArgs(propertyName));
+		public string Message {
+			get { return message; }
+			set {
+				message = value;
+				OnPropertyChanged();
 			}
+		}
+
+		public Command SendCommand { get { return sendCommand; } }
+
+		void Send() {
+			messages.Insert(0, userName + ": " + message);
 		}
 	}
 }
