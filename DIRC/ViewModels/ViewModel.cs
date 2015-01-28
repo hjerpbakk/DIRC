@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using DIRC.Annotations;
 
 namespace DIRC {
 	public class ViewModel : INotifyPropertyChanged {
@@ -10,7 +9,6 @@ namespace DIRC {
 
 	    public event PropertyChangedEventHandler PropertyChanged;
 
-	    [NotifyPropertyChangedInvocator]
 	    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
 	    {
 	        var handler = PropertyChanged;
