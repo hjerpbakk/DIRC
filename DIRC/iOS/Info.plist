@@ -50,6 +50,6 @@
 	<key>XSLaunchImageAssets</key>
 	<string>Resources/Images.xcassets/LaunchImage.launchimage</string>
 	<key>CFBundleDisplayName</key>
-	<string>DIRK</string>
+	<string>DIRC</string>
 </dict>
 </plist>
