@@ -51,10 +51,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="View\LoginView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DIRC-logo-raud.png" />
   </ItemGroup>
 </Project>
