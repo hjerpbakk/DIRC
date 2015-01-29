@@ -68,16 +68,116 @@
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="packages.config" />
+    <None Include="Resources\drawable\Icon%402x.png" />
+    <None Include="Resources\drawable\Icon-60%402x.png" />
+    <None Include="Resources\drawable\Icon-60%403x.png" />
+    <None Include="Resources\drawable\Icon-72.png" />
+    <None Include="Resources\drawable\Icon-72%402x.png" />
+    <None Include="Resources\drawable\Icon-76.png" />
+    <None Include="Resources\drawable\Icon-76%402x.png" />
+    <None Include="Resources\drawable\Icon-Small.png" />
+    <None Include="Resources\drawable\Icon-Small%402x.png" />
+    <None Include="Resources\drawable\Icon-Small%403x.png" />
+    <None Include="Resources\drawable\Icon-Small-40.png" />
+    <None Include="Resources\drawable\Icon-Small-40%402x.png" />
+    <None Include="Resources\drawable\Icon-Small-40%403x.png" />
+    <None Include="Resources\drawable\Icon-Small-50.png" />
+    <None Include="Resources\drawable\Icon-Small-50%402x.png" />
+    <None Include="Resources\drawable\iTunesArtwork%402x.png" />
+    <None Include="Resources\drawable\lol%402x.PNG" />
+    <None Include="Resources\drawable-hdpi\Approved by Runar.PNG" />
+    <None Include="Resources\drawable-hdpi\dirc%402x.png" />
+    <None Include="Resources\drawable-hdpi\Icon%402x.png" />
+    <None Include="Resources\drawable-hdpi\Icon-60%402x.png" />
+    <None Include="Resources\drawable-hdpi\Icon-60%403x.png" />
+    <None Include="Resources\drawable-hdpi\Icon-72.png" />
+    <None Include="Resources\drawable-hdpi\Icon-72%402x.png" />
+    <None Include="Resources\drawable-hdpi\Icon-76.png" />
+    <None Include="Resources\drawable-hdpi\Icon-76%402x.png" />
+    <None Include="Resources\drawable-hdpi\Icon-Small.png" />
+    <None Include="Resources\drawable-hdpi\Icon-Small%402x.png" />
+    <None Include="Resources\drawable-hdpi\Icon-Small%403x.png" />
+    <None Include="Resources\drawable-hdpi\Icon-Small-40.png" />
+    <None Include="Resources\drawable-hdpi\Icon-Small-40%402x.png" />
+    <None Include="Resources\drawable-hdpi\Icon-Small-40%403x.png" />
+    <None Include="Resources\drawable-hdpi\Icon-Small-50.png" />
+    <None Include="Resources\drawable-hdpi\Icon-Small-50%402x.png" />
+    <None Include="Resources\drawable-hdpi\iTunesArtwork%402x.png" />
+    <None Include="Resources\drawable-hdpi\lol%402x.PNG" />
+    <None Include="Resources\drawable-nodpi\Approved by Runar.PNG" />
+    <None Include="Resources\drawable-nodpi\dirc%402x.png" />
+    <None Include="Resources\drawable-nodpi\Icon.png" />
+    <None Include="Resources\drawable-nodpi\Icon%402x.png" />
+    <None Include="Resources\drawable-nodpi\Icon-60%402x.png" />
+    <None Include="Resources\drawable-nodpi\Icon-60%403x.png" />
+    <None Include="Resources\drawable-nodpi\Icon-72.png" />
+    <None Include="Resources\drawable-nodpi\Icon-72%402x.png" />
+    <None Include="Resources\drawable-nodpi\Icon-76.png" />
+    <None Include="Resources\drawable-nodpi\Icon-76%402x.png" />
+    <None Include="Resources\drawable-nodpi\Icon-Small.png" />
+    <None Include="Resources\drawable-nodpi\Icon-Small%402x.png" />
+    <None Include="Resources\drawable-nodpi\Icon-Small%403x.png" />
+    <None Include="Resources\drawable-nodpi\Icon-Small-40.png" />
+    <None Include="Resources\drawable-nodpi\Icon-Small-40%402x.png" />
+    <None Include="Resources\drawable-nodpi\Icon-Small-40%403x.png" />
+    <None Include="Resources\drawable-nodpi\Icon-Small-50.png" />
+    <None Include="Resources\drawable-nodpi\Icon-Small-50%402x.png" />
+    <None Include="Resources\drawable-nodpi\iTunesArtwork%402x.png" />
+    <None Include="Resources\drawable-nodpi\lol%402x.PNG" />
+    <None Include="Resources\drawable-xhdpi\Approved by Runar.PNG" />
+    <None Include="Resources\drawable-xhdpi\Icon%402x.png" />
+    <None Include="Resources\drawable-xhdpi\Icon-60%402x.png" />
+    <None Include="Resources\drawable-xhdpi\Icon-60%403x.png" />
+    <None Include="Resources\drawable-xhdpi\Icon-72.png" />
+    <None Include="Resources\drawable-xhdpi\Icon-72%402x.png" />
+    <None Include="Resources\drawable-xhdpi\Icon-76.png" />
+    <None Include="Resources\drawable-xhdpi\Icon-76%402x.png" />
+    <None Include="Resources\drawable-xhdpi\Icon-Small.png" />
+    <None Include="Resources\drawable-xhdpi\Icon-Small%402x.png" />
+    <None Include="Resources\drawable-xhdpi\Icon-Small%403x.png" />
+    <None Include="Resources\drawable-xhdpi\Icon-Small-40.png" />
+    <None Include="Resources\drawable-xhdpi\Icon-Small-40%402x.png" />
+    <None Include="Resources\drawable-xhdpi\Icon-Small-40%403x.png" />
+    <None Include="Resources\drawable-xhdpi\Icon-Small-50.png" />
+    <None Include="Resources\drawable-xhdpi\Icon-Small-50%402x.png" />
+    <None Include="Resources\drawable-xhdpi\iTunesArtwork%402x.png" />
+    <None Include="Resources\drawable-xhdpi\lol%402x.PNG" />
+    <None Include="Resources\drawable-xxhdpi\Approved by Runar.PNG" />
+    <None Include="Resources\drawable-xxhdpi\Icon%402x.png" />
+    <None Include="Resources\drawable-xxhdpi\Icon-60%402x.png" />
+    <None Include="Resources\drawable-xxhdpi\Icon-60%403x.png" />
+    <None Include="Resources\drawable-xxhdpi\Icon-72.png" />
+    <None Include="Resources\drawable-xxhdpi\Icon-72%402x.png" />
+    <None Include="Resources\drawable-xxhdpi\Icon-76.png" />
+    <None Include="Resources\drawable-xxhdpi\Icon-76%402x.png" />
+    <None Include="Resources\drawable-xxhdpi\Icon-Small.png" />
+    <None Include="Resources\drawable-xxhdpi\Icon-Small%402x.png" />
+    <None Include="Resources\drawable-xxhdpi\Icon-Small%403x.png" />
+    <None Include="Resources\drawable-xxhdpi\Icon-Small-40.png" />
+    <None Include="Resources\drawable-xxhdpi\Icon-Small-40%402x.png" />
+    <None Include="Resources\drawable-xxhdpi\Icon-Small-40%403x.png" />
+    <None Include="Resources\drawable-xxhdpi\Icon-Small-50.png" />
+    <None Include="Resources\drawable-xxhdpi\Icon-Small-50%402x.png" />
+    <None Include="Resources\drawable-xxhdpi\iTunesArtwork%402x.png" />
+    <None Include="Resources\drawable-xxhdpi\lol%402x.PNG" />
+    <None Include="Resources\drawable-hdpi\splash.PNG" />
+    <None Include="Resources\drawable-nodpi\splash.PNG" />
+    <None Include="Resources\drawable-xhdpi\splash.PNG" />
+    <None Include="Resources\drawable-xxhdpi\splash.PNG" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\layout\" />
     <Folder Include="Resources\values\" />
+    <Folder Include="Resources\drawable-nodpi\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />
     <AndroidResource Include="Resources\drawable-hdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
+    <AndroidResource Include="Resources\drawable\dirc.png" />
+    <AndroidResource Include="Resources\drawable\splash.png" />
+    <AndroidResource Include="Resources\values\Styles.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.3.1.6296\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.3.1.6296\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
@@ -86,5 +186,24 @@
       <Project>{87547C72-E841-4DA0-950B-92566F1A26C1}</Project>
       <Name>DIRC</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\drawable-hdpi\dirc.png" />
+    <BundleResource Include="Resources\drawable-xhdpi\dirc.png" />
+    <BundleResource Include="Resources\drawable-xhdpi\dirc%402x.png">
+      <DependentUpon>dirc.png</DependentUpon>
+    </BundleResource>
+    <BundleResource Include="Resources\drawable-xxhdpi\dirc.png" />
+    <BundleResource Include="Resources\drawable-xxhdpi\dirc%402x.png">
+      <DependentUpon>dirc.png</DependentUpon>
+    </BundleResource>
+    <BundleResource Include="Resources\drawable-nodpi\dirc.png" />
+    <BundleResource Include="Resources\drawable-hdpi\dirc %28copy%29.png" />
+    <BundleResource Include="dirc%402x.png">
+      <DependentUpon>dirc.png</DependentUpon>
+    </BundleResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="dirc.png" />
   </ItemGroup>
 </Project>
