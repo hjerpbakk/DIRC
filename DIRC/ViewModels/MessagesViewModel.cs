@@ -22,7 +22,7 @@ namespace DIRC.ViewModels {
 			this.navigation = navigation;
 			this.userName = userName;
 			client = new Client();
-			sendCommand = new Command(() => Send());
+			sendCommand = new Command(() => Send(), () => !string.IsNullOrEmpty(message));
 			messages = new ObservableCollection<string>();
 		}
 
@@ -35,6 +35,7 @@ namespace DIRC.ViewModels {
 			set {
 				message = value;
 				OnPropertyChanged();
+				sendCommand.ChangeCanExecute();
 			}
 		}
 
@@ -65,9 +66,11 @@ namespace DIRC.ViewModels {
 		async Task Send() {
 			try {
 				ShowMessage(message);
-				await client.Send(userName, message);		
+				await client.Send(userName, message);	
 			} catch (Exception ex) {
 				ShowMessage("!Send!: " + ex.Message);
+			} finally {
+				Message = "";
 			}
 		}
 
