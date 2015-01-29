@@ -3,15 +3,12 @@
 	xmlns="http://xamarin.com/schemas/2014/forms" 
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 	x:Class="DIRC.View.MessagesView" Title="{Binding Title}">
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="*" />
-			<RowDefinition Height="Auto" />
-		</Grid.RowDefinitions>
-		<ListView ItemsSource="{Binding Messages}" SelectedItem="{Binding SelectedMessage}" />
-		<StackLayout Grid.Row="1" Padding="10" Orientation="Horizontal">
-			<Entry Text="{Binding Message}" HorizontalOptions="FillAndExpand" />
-			<Button Text="Send" Command="{Binding SendCommand}" HorizontalOptions="End" />
-		</StackLayout>
-	</Grid>
+	<StackLayout VerticalOptions="FillAndExpand">
+	<ListView ItemsSource="{Binding Messages}" SelectedItem="{Binding SelectedMessage}"  />
+			<StackLayout Padding="10" Orientation="Horizontal" VerticalOptions="End">
+				<Entry Text="{Binding Message}" HorizontalOptions="FillAndExpand" />
+				<Button Text="Send" Command="{Binding SendCommand}" HorizontalOptions="End" />
+			</StackLayout>
+	</StackLayout>
 </ContentPage>
+	

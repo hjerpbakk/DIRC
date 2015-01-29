@@ -145,6 +145,7 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="View\IosPageRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ITunesArtwork Include="ITunesArtwork" />
@@ -171,5 +172,8 @@
       <Project>{87547C72-E841-4DA0-950B-92566F1A26C1}</Project>
       <Name>DIRC</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\" />
   </ItemGroup>
 </Project>
