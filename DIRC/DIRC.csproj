@@ -90,6 +90,5 @@
     <EmbeddedResource Include="View\MessageView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; milestone2
   </ItemGroup>
 </Project>
