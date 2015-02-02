@@ -15,15 +15,15 @@ namespace DIRC.IRC {
 		public Client()
 		{
 			_platform = Device.OS.ToString();
-		    _connection = new HubConnection("http://192.168.56.1:19582");
-            _proxy = _connection.CreateHubProxy("dirchub");
+		    _connection = new HubConnection("http://10.0.105.80:19582");
+            _proxy = _connection.CreateHubProxy("DircHub");
 		}
 
 		public async Task Connect()
 		{
 			await _connection.Start();
 
-			_proxy.On("messageReceived", (string platform, string message) =>
+			_proxy.On("broadcastMessage", (string platform, string message) =>
 				{
 					if (OnMessageReceived != null)
 						OnMessageReceived(this, message);
