@@ -35,13 +35,21 @@
             var chat = $.connection.dircHub;
 
             // Create a function that the hub can call to broadcast messages.
-            chat.client.broadcastMessage = function (message) {
+            chat.client.broadcastMessage = function (user, platform, message) {
                 // Html encode display name and message.
-  
                 var encodedMsg = $('<div />').text(message).html();
                 // Add the message to the page.
-                $('#discussion').append('<li>' + encodedMsg + '</li>');
+                $('#discussion').append('<li>'user + ' on ' + platform + ': ' + encodedMsg + '</li>');
             };
+			
+			// Supporting old and new API for now
+            chat.client.broadcastMessage = function (message) {
+                // Html encode display name and message.
+                var encodedMsg = $('<div />').text(message).html();
+                // Add the message to the page.
+                $('#discussion').append('<li>'user + ' on ' + platform + ': ' + encodedMsg + '</li>');
+            };
+			
             // Get the user name and store it to prepend to messages.
             $('#displayname').val(prompt('Enter your name:', ''));
             // Set initial focus to message input box.
@@ -50,7 +58,8 @@
             $.connection.hub.start().done(function () {
                 $('#sendmessage').click(function () {
                     // Call the Send method on the hub.
-                    chat.server.send($('#displayname').val() + ' on ' + get_browser() + ': ' + $('#message').val());
+                    // chat.server.send($('#displayname').val(), get_browser(), $('#message').val());
+					chat.server.send($('#displayname').val() + ' on ' + get_browser() + ': ' + $('#message').val());
                     // Clear text box and reset focus for next comment.
                     $('#message').val('').focus();
                 });
