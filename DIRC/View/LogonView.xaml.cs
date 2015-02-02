@@ -14,7 +14,13 @@ namespace DIRC.View {
 
 		protected override void OnDisappearing() {
 			base.OnDisappearing();
-			Navigation.RemovePage(this);
+			#if SILVERLIGHT
+				Navigation.RemovePage(this);
+			#endif 
+
+			#if __IOS__
+				Navigation.RemovePage(this);
+			#endif
 		}
 	}
 }
