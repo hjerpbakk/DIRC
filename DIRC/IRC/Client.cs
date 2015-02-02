@@ -26,7 +26,7 @@ namespace DIRC.IRC
             _proxy.On("broadcastMessage", (string userName, string platform, string message) =>
             {
                 if (OnMessageReceived != null)
-                    OnMessageReceived(this, string.Format("{0} ({1}): {2}", userName, _platform, message));
+						OnMessageReceived(this, string.Format("{0} ({1}): {2}", userName, platform, message));
             });
         }
 
