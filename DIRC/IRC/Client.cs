@@ -13,27 +13,27 @@ namespace DIRC.IRC
 
         public event EventHandler<string> OnMessageReceived;
 
-        public Client()
-        {
-            _platform = Device.OS.ToString();
-            _connection = new HubConnection("http://10.0.105.80:19582");
+		public Client()
+		{
+			_platform = Device.OS.ToString();
+		    _connection = new HubConnection("http://10.0.105.80:19582");
             _proxy = _connection.CreateHubProxy("DircHub");
-        }
+		}
 
-        public async Task Connect()
-        {
-            await _connection.Start();
-            _proxy.On("broadcastMessage", (string message) =>
-            {
-                if (OnMessageReceived != null)
-                    OnMessageReceived(this, message);
-            });
-        }
+		public async Task Connect()
+		{
+			await _connection.Start();
+			_proxy.On("broadcastMessage", (string message) =>
+				{
+					if (OnMessageReceived != null)
+						OnMessageReceived(this, message);
+				});
+		}
 
-        public Task Send(string userName, string message)
-        {
-            return _proxy.Invoke("send", string.Format("{0} on {1}: {2}", userName, _platform, message));
-        }
-    }
+		public Task Send(string userName, string message)
+		{
+			return _proxy.Invoke("send", string.Format("{0} on {1}: {2}", userName, _platform, message));
+		}
+	}
 }
 

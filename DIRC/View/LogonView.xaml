@@ -4,7 +4,7 @@
 	x:Class="DIRC.View.LogonView">
 	 <StackLayout VerticalOptions="Start" HorizontalOptions="Center" Padding="10">
 		<Image Source="dirc.png" />
-		<Entry Text="{Binding UserName}"  Placeholder="Username" VerticalOptions="CenterAndExpand" />
-		<Button Text="Logon" Command=" {Binding LogonCommand}" IsEnabled="{Binding logonEnabled}" VerticalOptions="CenterAndExpand" />
+		<Entry Text="{Binding UserName}" Placeholder="Username" />
+		<Button Text="Logon" Command=" {Binding LogonCommand}" IsEnabled="{Binding longonEnabled}" VerticalOptions="CenterAndExpand" />
 	</StackLayout>
 </ContentPage>

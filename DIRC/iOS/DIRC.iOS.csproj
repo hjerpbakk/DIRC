@@ -141,6 +141,8 @@
     <BundleResource Include="Resources\Icon-72%402x.png" />
     <BundleResource Include="Resources\Icon-60%402x.png" />
     <BundleResource Include="Resources\Icon-60%403x.png" />
+    <BundleResource Include="Resources\green.png" />
+    <BundleResource Include="Resources\grey_2.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
