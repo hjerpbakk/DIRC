@@ -30,10 +30,19 @@ namespace DIRC.IRC
             });
         }
 
-        public Task Send(string userName, string message)
+		public async Task Send(string userName, string message)
         {
-            return _proxy.Invoke("send", userName, _platform, message);
+			try {
+				await SendMessage(userName, message);
+			} catch (Exception ex) {
+				await Connect();
+				await SendMessage(userName, message);
+			}
         }
+
+		async Task SendMessage(string userName, string message) {
+			await _proxy.Invoke("send", userName, _platform, message);
+		}
     }
 }
 
