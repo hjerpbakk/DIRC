@@ -20,20 +20,20 @@ namespace DIRC.IRC
             _proxy = _connection.CreateHubProxy("DircHub");
 		}
 
-		public async Task Connect()
-		{
-			await _connection.Start();
-			_proxy.On("broadcastMessage", (string message) =>
-				{
-					if (OnMessageReceived != null)
-						OnMessageReceived(this, message);
-				});
-		}
+        public async Task Connect()
+        {
+            await _connection.Start();
+            _proxy.On("broadcastMessage", (string userName, string platform, string message) =>
+            {
+                if (OnMessageReceived != null)
+                    OnMessageReceived(this, string.Format("{0} ({1}): {2}", userName, _platform, message));
+            });
+        }
 
-		public Task Send(string userName, string message)
-		{
-			return _proxy.Invoke("send", string.Format("{0} on {1}: {2}", userName, _platform, message));
-		}
-	}
+        public Task Send(string userName, string message)
+        {
+            return _proxy.Invoke("send", userName, _platform, message);
+        }
+    }
 }
 
