@@ -16,7 +16,7 @@ namespace DIRC.IRC {
 		{
 			_platform = Device.OS.ToString();
 			_connection = new HubConnection("http://192.168.1.103");
-			_proxy = _connection.CreateHubProxy("Chat");
+			_proxy = _connection.CreateHubProxy("dirchub");
 		}
 
 		public async Task Connect()
