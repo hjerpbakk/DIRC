@@ -11,10 +11,9 @@ namespace DIRC.ViewModels {
 	public class MessagesViewModel : ViewModelBase {
 		readonly string userName;
 		readonly Command sendCommand;
-		readonly ObservableCollection<string> messages;
+		readonly ObservableCollection<DIRCMessage> messages;
 		readonly Client client;
 		readonly INavigation navigation;
-
 		string message;
 		string selectedMessage;
 
@@ -23,12 +22,12 @@ namespace DIRC.ViewModels {
 			this.userName = userName;
 			client = new Client();
 			sendCommand = new Command(() => Send(), () => !string.IsNullOrEmpty(message));
-			messages = new ObservableCollection<string>();
+			messages = new ObservableCollection<DIRCMessage>();
 		}
 
 		public string Title { get { return userName; } }
 
-		public ObservableCollection<string> Messages { get { return messages; } }
+		public ObservableCollection<DIRCMessage> Messages { get { return messages; } }
 
 		public string Message {
 			get { return message; }
@@ -59,29 +58,33 @@ namespace DIRC.ViewModels {
 				message = "Connected";
 				await Send();
 			} catch (Exception ex) {
-				ShowMessage("!Init!: " + ex.Message);
+				ShowMessage(new DIRCMessage{Text="!Init!: " + ex.Message, IsItMe=false});
 			}
 		}
 
 		async Task Send() {
 			try {
-				ShowMessage(message);
+				ShowMessage(new DIRCMessage{Text=message, IsItMe=false});
 				await client.Send(userName, message);	
 			} catch (Exception ex) {
-				ShowMessage("!Send!: " + ex.Message);
+				ShowMessage(new DIRCMessage{Text="!Send!: " + ex.Message, IsItMe=false});
 			} finally {
 				Message = "";
 			}
 		}
 
-		void ShowMessage(string theMessage) {
+		void ShowMessage(DIRCMessage theMessage) {
 			messages.Add(theMessage);
 		}
 
 		void HandleOnMessageReceived (object sender, string theMessage)
 		{
-			ShowMessage(theMessage);
+			ShowMessage(new DIRCMessage{Text=theMessage, IsItMe=true});
 		}
+	}
+	public class DIRCMessage{
+		public string Text{ get; set; }
+		public bool IsItMe{ get; set; }
 	}
 }
 

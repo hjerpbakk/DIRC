@@ -33,8 +33,8 @@ namespace DIRC.iOS
 			// buggy, see https://bugzilla.xamarin.com/show_bug.cgi?id=6177
 			//left = bleft.CreateResizableImage (new UIEdgeInsets (10, 16, 18, 26));
 			//right = bright.CreateResizableImage (new UIEdgeInsets (11, 11, 17, 18));
-			left = bleft.StretchableImage (26, 16);
-			right = bright.StretchableImage (11, 11);
+			left = bleft.StretchableImage (22, 32);
+			right = bright.StretchableImage (22, 32);
 		}
 
 		public BubbleCell (bool isLeft) : base (UITableViewCellStyle.Default, isLeft ? KeyLeft : KeyRight)
@@ -62,10 +62,10 @@ namespace DIRC.iOS
 			imageView.Frame = new CGRect (new CGPoint (isLeft ? 10 : frame.Width-size.Width-10, frame.Y), size);
 			view.SetNeedsDisplay ();
 			frame = imageView.Frame;
-			label.Frame = new CGRect (new CGPoint (frame.X + (isLeft ? 12 : 8), frame.Y + 6), size-BubblePadding);
+			label.Frame = new CGRect (new CGPoint (frame.X + (isLeft ? 25 : 15), frame.Y + 6), size-BubblePadding);
 		}
 
-		static internal CGSize BubblePadding = new CGSize (22, 16);
+		static internal CGSize BubblePadding = new CGSize (44, 22);
 
 		static internal CGSize GetSizeForText (UIView tv, string text)
 		{
@@ -77,6 +77,8 @@ namespace DIRC.iOS
 			label.Text = text;
 			SetNeedsLayout ();
 		}
+
+	 
 	}
 
 	public class ChatBubble : Element, IElementSizing {

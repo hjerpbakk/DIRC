@@ -8,7 +8,7 @@
 		<local:CustomListView ItemsSource="{Binding Messages}" SelectedItem="{Binding SelectedMessage}" HasUnevenRows="True">
 			<ListView.ItemTemplate>
 				<DataTemplate>
-					<local:CustomListViewCell Text="{Binding .}" IsMe="false" />
+					<local:CustomListViewCell Text="{Binding Text}" IsMe="{Binding IsItMe}" />
 				</DataTemplate>
 			</ListView.ItemTemplate>
 		</local:CustomListView>

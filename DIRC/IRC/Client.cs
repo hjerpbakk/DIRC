@@ -16,7 +16,7 @@ namespace DIRC.IRC
 		public Client()
 		{
 			_platform = Device.OS.ToString();
-		    _connection = new HubConnection("http://10.0.105.80:19582");
+		    _connection = new HubConnection("http://mildestve.it:1337");
             _proxy = _connection.CreateHubProxy("DircHub");
 		}
 

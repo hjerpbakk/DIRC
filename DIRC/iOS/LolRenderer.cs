@@ -1,6 +1,8 @@
 ﻿using System;
 using Xamarin.Forms.Platform.iOS;
 using Xamarin.Forms;
+using Foundation;
+using UIKit;
 
 [assembly:ExportRenderer(typeof(DIRC.CustomListViewCell), typeof(DIRC.iOS.LolRenderer))]
 
