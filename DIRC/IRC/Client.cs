@@ -13,12 +13,12 @@ namespace DIRC.IRC
 
         public event EventHandler<string> OnMessageReceived;
 
-		public Client()
-		{
-			_platform = Device.OS.ToString();
-		    _connection = new HubConnection("http://mildestve.it:1337");
+        public Client()
+        {
+            _platform = Device.OS.ToString();
+            _connection = new HubConnection("http://mildestve.it:1337");
             _proxy = _connection.CreateHubProxy("DircHub");
-		}
+        }
 
         public async Task Connect()
         {
@@ -26,23 +26,33 @@ namespace DIRC.IRC
             _proxy.On("broadcastMessage", (string userName, string platform, string message) =>
             {
                 if (OnMessageReceived != null)
-						OnMessageReceived(this, string.Format("{0} ({1}): {2}", userName, platform, message));
+                    OnMessageReceived(this, string.Format("{0} ({1}): {2}", userName, platform, message));
             });
         }
 
-		public async Task Send(string userName, string message)
+        public async Task Send(string userName, string message)
         {
-			try {
-				await SendMessage(userName, message);
-			} catch (Exception ex) {
-				await Connect();
-				await SendMessage(userName, message);
-			}
+            bool failed = false;
+            try
+            {
+                await SendMessage(userName, message);
+            }
+            catch (Exception)
+            {
+                failed = true;
+            }
+
+            if (failed)
+            {
+                await Connect();
+                await SendMessage(userName, message);
+            }
         }
 
-		async Task SendMessage(string userName, string message) {
-			await _proxy.Invoke("send", userName, _platform, message);
-		}
+        async Task SendMessage(string userName, string message)
+        {
+            await _proxy.Invoke("send", userName, _platform, message);
+        }
     }
 }
 
