@@ -17,9 +17,7 @@ namespace DIRC.iOS
 
 			var thecell = (CustomListViewCell)item;
 			var cell = (BubbleCell) tableView.DequeueReusableCell (Id) ?? new BubbleCell (thecell.IsMe);
-
 			cell.Update (thecell.Text);
-
 			return cell;
 
 		}

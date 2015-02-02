@@ -42,9 +42,6 @@
     <Compile Include="ViewModels\MessagesViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="IRC\Client.cs" />
-    <Compile Include="View\MessageView.xaml.cs">
-      <DependentUpon>MessageView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CustomListView.cs" />
     <Compile Include="RoundedBoxView.cs" />
     <Compile Include="CustomListViewCell.cs" />
@@ -88,8 +85,5 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\dirc.png" />
-    <EmbeddedResource Include="View\MessageView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
   </ItemGroup>
 </Project>

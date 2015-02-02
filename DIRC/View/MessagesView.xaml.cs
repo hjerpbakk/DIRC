@@ -20,6 +20,10 @@ namespace DIRC.View {
 			base.OnAppearing ();
 			await vm.Init();
 		}
+
+		void MessageSelected(object sender, EventArgs e) {
+			messages.SelectedItem = null;
+		}
 	}
 }
 
