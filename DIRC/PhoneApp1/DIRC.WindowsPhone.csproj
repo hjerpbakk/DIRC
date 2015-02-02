@@ -148,6 +148,7 @@
     <Content Include="Icon-76%402x.png" />
     <Content Include="iTunesArtwork%402x.png" />
     <Content Include="README_FIRST.txt" />
+    <Content Include="SplashScreenImage.jpg" />
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
