@@ -12,10 +12,16 @@ namespace DIRC.View {
 			NavigationPage.SetHasBackButton(this, false);
 		}
 
-		protected override void OnDisappearing() {
-			base.OnDisappearing();
-			Navigation.RemovePage(this);
-		}
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            if (Device.OS == TargetPlatform.Android)
+            {
+                return;
+            }
+
+            Navigation.RemovePage(this);
+        }
 	}
 }
 
