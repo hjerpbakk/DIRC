@@ -23,16 +23,16 @@ namespace DIRC.IRC
         public async Task Connect()
         {
             await _connection.Start();
-            _proxy.On("broadcastMessage", (string message) =>
+            _proxy.On("broadcastMessage", (string userName, string platform, string message) =>
             {
                 if (OnMessageReceived != null)
-                    OnMessageReceived(this, message);
+                    OnMessageReceived(this, string.Format("{0} ({1}): {2}", userName, _platform, message));
             });
         }
 
         public Task Send(string userName, string message)
         {
-            return _proxy.Invoke("send", string.Format("{0} on {1}: {2}", userName, _platform, message));
+            return _proxy.Invoke("send", userName, _platform, message);
         }
     }
 }
