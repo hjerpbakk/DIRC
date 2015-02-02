@@ -8,6 +8,7 @@ namespace WebSocketSpike.LocalWebServer
     {
         public void Configuration(IAppBuilder app)
         {
+            app.UseCors(CorsOptions.AllowAll);
             app.Map(
                 "/signalr", 
                 map =>

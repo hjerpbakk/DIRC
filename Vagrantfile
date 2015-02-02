@@ -12,7 +12,7 @@ Vagrant::Config.run do |config|
 
   config.vm.provision :shell, :inline => "/vagrant/buildAndDeploySignalRHub"
 
-  config.vm.forward_port 8080, 8080 
+  config.vm.forward_port 8080, 19582
 end
 
 Vagrant.configure("2") do |config|
