@@ -12,6 +12,7 @@ namespace DIRC.View {
 			InitializeComponent();
 			BindingContext = vm = new MessagesViewModel(Navigation, userName);
 			NavigationPage.SetHasBackButton(this, false);
+            Device.OnPlatform(() => input.BackgroundColor = new Color(248D, 248D, 248D));
 		}
 
 		protected override async void OnAppearing ()
