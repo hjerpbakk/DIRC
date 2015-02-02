@@ -117,6 +117,7 @@
     <Reference Include="System.Net.Http.Primitives">
       <HintPath>..\Components\signalr-2.1.2\lib\ios-unified\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="MonoTouch.Dialog-1" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\dirc%402x.png" />
@@ -136,6 +137,8 @@
     <BundleResource Include="Resources\Icon-72%402x.png" />
     <BundleResource Include="Resources\Icon-60%402x.png" />
     <BundleResource Include="Resources\Icon-60%403x.png" />
+    <BundleResource Include="Resources\blue.png" />
+    <BundleResource Include="Resources\grey.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -145,6 +148,9 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="ListViewRenderer.cs" />
+    <Compile Include="BubbleCell.cs" />
+    <Compile Include="LolRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ITunesArtwork Include="ITunesArtwork" />
