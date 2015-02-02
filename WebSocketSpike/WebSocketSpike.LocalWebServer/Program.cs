@@ -14,7 +14,7 @@ namespace WebSocketSpike.LocalWebServer
     {
         private static void Main(string[] args)
         {
-            const string UrlWebServer = "http://*:8080/";
+            const string UrlWebServer = "http://*:1337/";
 
             using (WebApp.Start<Startup>(UrlWebServer))
             {
