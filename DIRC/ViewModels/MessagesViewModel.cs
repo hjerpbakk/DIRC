@@ -39,17 +39,6 @@ namespace DIRC.ViewModels {
 			}
 		}
 
-		public string SelectedMessage {
-			get { return selectedMessage; }
-			set {
-				selectedMessage = value;
-				OnPropertyChanged();
-				if (!string.IsNullOrEmpty(selectedMessage)) {
-					navigation.PushAsync(new MessageView(selectedMessage));	 
-				}
-			}
-		}
-
 		public Command SendCommand { get { return sendCommand; } }
 
 		public async Task Init() {
