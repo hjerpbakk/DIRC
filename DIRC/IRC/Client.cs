@@ -22,7 +22,6 @@ namespace DIRC.IRC {
 		public async Task Connect()
 		{
 			await _connection.Start();
-
 			_proxy.On("broadcastMessage", (string platform, string message) =>
 				{
 					if (OnMessageReceived != null)
@@ -32,7 +31,7 @@ namespace DIRC.IRC {
 
 		public Task Send(string userName, string message)
 		{
-			return _proxy.Invoke("Send", string.Format("{0} on {1}: {2}", userName, _platform, message));
+			return _proxy.Invoke("send", string.Format("{0} on {1}: {2}", userName, _platform, message));
 		}
 	}
 }
