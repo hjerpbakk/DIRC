@@ -3,16 +3,23 @@
 <head>
     <title>SignalR Simple Chat</title>
     <style type="text/css">
+        html,body{
+			height:100%;
+			background-color: #000000;
+            color:#00ff00;
+	}
+	
         .container {
-            // background-color: #000000;
-            border: thick solid #808080;
-            padding: 20px;
-            margin: 20px;
-        }
+            background-color: #000000;
+            color:#00ff00;
+            height:100%
+		}
     </style>
 	<link rel="stylesheet" href="css/font-awesome.min.css" />
 </head>
 <body>
+	<div id="users">
+	</div>
     <div class="container">
         <input type="text" id="message" />
         <input type="button" id="sendmessage" value="Send" />
@@ -29,7 +36,10 @@
     <script src="http://mildestve.it:1337/signalr/hubs"></script>
     <!--Add script to update the page and send messages.-->
     <script type="text/javascript">
+	
         $(function () {
+			Users = [];
+		
         //Set the hubs URL for the connection
             $.connection.hub.url = "http://mildestve.it:1337/signalr";
 
@@ -38,54 +48,102 @@
 
 			var platformIcons = {};
 						
-			platformIcons["default"] = '<i class="fa fa-android"></i>';
-			//platformIcons["android"] = '<i class="fa fa-android"></i>';
-			//platformIcons["ios"] = '<i class="fa fa-apple"></i>';
-			//platformIcons["winphone"] = '<i class="fa fa-windows"></i>';
-			//platformIcons["windows"] = '<i class="fa fa-windows"></i>';
-			//platformIcons["gnu/linux"] = '<i class="fa fa-linux"></i>';
-			//platformIcons["safari"] = '<i class="fa fa-compass"></i>';
-			//platformIcons["chrome"] = '<i class="fa fa-google"></i>';
+			platformIcons["default"] = '<i class="fa fa-question"></i>';
+			platformIcons["android"] = '<i class="fa fa-android"></i>';
+			platformIcons["ios"] = '<i class="fa fa-apple"></i>';
+			platformIcons["winphone"] = '<i class="fa fa-windows"></i>';
+			platformIcons["windows"] = '<i class="fa fa-windows"></i>';
+			platformIcons["gnu/linux"] = '<i class="fa fa-linux"></i>';
+			platformIcons["safari"] = '<i class="fa fa-compass"></i>';
+			platformIcons["chrome"] = '<i class="fa fa-google"></i>';
 			
 			Date.prototype.timeNow = function () {
 				return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
 			}
 			
-            // Create a function that the hub can call to broadcast messages.
-            chat.client.broadcastMessage = function (user, platform, message) {
-						
-				var timestamp = new Date().timeNow();
-				var timestampHtml = document.createTextNode(timestamp);
-				var timestampSpan = document.createElement('span');
-				timestampSpan.style.color = "#F50C0C";
-				timestampSpan.appendChild(timestampHtml);
+			Colors = {};
+			Colors.names = {
+				aqua: "#00ffff",
+				azure: "#f0ffff",
+				beige: "#f5f5dc",
+				blue: "#0000ff",
+				brown: "#a52a2a",
+				cyan: "#00ffff",
+				darkblue: "#00008b",
+				darkcyan: "#008b8b",
+				darkgrey: "#a9a9a9",
+				darkgreen: "#006400",
+				darkkhaki: "#bdb76b",
+				darkmagenta: "#8b008b",
+				darkolivegreen: "#556b2f",
+				darkorange: "#ff8c00",
+				darkorchid: "#9932cc",
+				darkred: "#8b0000",
+				darksalmon: "#e9967a",
+				darkviolet: "#9400d3",
+				fuchsia: "#ff00ff",
+				gold: "#ffd700",
+				green: "#008000",
+				indigo: "#4b0082",
+				khaki: "#f0e68c",
+				lightblue: "#add8e6",
+				lightcyan: "#e0ffff",
+				lightgreen: "#90ee90",
+				lightgrey: "#d3d3d3",
+				lightpink: "#ffb6c1",
+				lightyellow: "#ffffe0",
+				lime: "#00ff00",
+				magenta: "#ff00ff",
+				maroon: "#800000",
+				navy: "#000080",
+				olive: "#808000",
+				orange: "#ffa500",
+				pink: "#ffc0cb",
+				purple: "#800080",
+				violet: "#800080",
+				//red: "#ff0000",
+				silver: "#c0c0c0",
+				white: "#ffffff",
+				yellow: "#ffff00"
+			};
 			
-				var iconHtml = platformIcons[platform.toLowerCase()] || platformIcons["default"];
-				var icon = document.createElement('i');
-				icon.style.color = "#3C58FA";
-				icon.class = platformIcons[platform.toLowerCase()] || platformIcons["default"];
+			Colors.random = function() {
+				var result;
+				var count = 0;
+				for (var prop in this.names)
+					if (Math.random() < 1/++count)
+					   result = this.names[prop];
+				return result;
+			};
+			
+            // Create a function that the hub can call to broadcast messages.
+            chat.client.broadcastMessage = function (user, platform, message) {				 
+				if((Users[user] == undefined)){
+					Users[user] = Colors.random();
+					update_users();
+				}
 				
-				var userHtml = document.createTextNode(user + ': ');
-				var userSpan = document.createElement('span');
-				userSpan.style.color = "#3C58FA";
-				userSpan.appendChild(userHtml);
-		   
+				function GetTimespanDiv(){
+					return "<div style='width:5%;display:inline-block;color:#ff0000'>" +new Date().timeNow() + "</div>"
+				}
+			
+				function GetNameWithColor(){
+					return "<div style='width:8%;display:inline-block;color:" + Users[user] + "'>"+ (platformIcons[platform.toLowerCase()] || platformIcons["default"]) + " " + user + "</div>"
+				}
+				
+				function GetMessageDiv(){
+					return "<div style='width:87%;display:inline-block;color:" + Users[user] + "'>" + message + "</div>";
+				}
+				
 				var messageHtml = document.createTextNode(message);
 				var messageSpan = document.createElement('span');
 				messageSpan.style.color = "#32C900";
 				messageSpan.appendChild(messageHtml);
 			
 				$('#discussion')
-					.append("<div>")
-					.append(timestampSpan)
-					.append(' ')
-					.append("<div>")					
-						.append(iconHtml)
-						.append(' ')
-						.append(userSpan)
-					.append("</div>")
-					.append(messageSpan)
-					.append("</div>")
+					.append(GetTimespanDiv())
+					.append(GetNameWithColor())
+					.append(GetMessageDiv())
 					.append('<br/>');
             };
 			
@@ -103,7 +161,18 @@
                 });
             });
         });
-		
+		function update_users(){
+			var text="";
+			//for (i = 0; i < Users.length; i++) { 
+			//	text += Users[i] + "<br>";
+			//}
+			for (key in Users.length) {
+				if (Users.length.hasOwnProperty(key)){
+					text += key+"<br/>";
+				}
+			}
+			document.getElementById("users").innerHTML=text;
+		}
 		function get_browser(){
 			var ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || []; 
 			if(/trident/i.test(M[1])){
