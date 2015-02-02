@@ -22,7 +22,7 @@ namespace DIRC.IRC {
 		public async Task Connect()
 		{
 			await _connection.Start();
-			_proxy.On("broadcastMessage", (string platform, string message) =>
+			_proxy.On("broadcastMessage", (string message) =>
 				{
 					if (OnMessageReceived != null)
 						OnMessageReceived(this, message);
