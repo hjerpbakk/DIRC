@@ -1,3 +1,3 @@
 # /bin/bash
 sudo docker build -t dips/signalrhub /vagrant/
-sudo docker run -p 8080:8080 -td dips/signalrhub  
+sudo docker run -p 1337:1337 -td dips/signalrhub  
