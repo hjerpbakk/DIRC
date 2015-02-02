@@ -14,12 +14,27 @@
             color:#00ff00;
             height:100%
 		}
+		#userWindow{
+		padding-left:5px;
+		padding-right:5px;
+		padding-bottom:10px;
+		 border: 1px dashed;
+			position: fixed;
+			top: 40px;
+			right: 5px;
+			background-color: #44404C;
+		}
+		
     </style>
 	<link rel="stylesheet" href="css/font-awesome.min.css" />
 </head>
 <body>
-	<div id="users">
-	ho ho
+<div id="userWindow">
+<h3>Users</h3>
+<div id="users">
+
+	
+	</div>
 	</div>
     <div class="container">
         <input type="text" id="message" />
@@ -60,6 +75,7 @@
 			
             // Create a function that the hub can call to broadcast messages.
             chat.client.broadcastMessage = function (user, platform, message) {
+			 $(document).scrollTop($(document).height());
 			 
 				if(!(Users.indexOf(user) > -1)){
 				
