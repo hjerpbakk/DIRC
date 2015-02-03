@@ -53,26 +53,29 @@
     <!--Add script to update the page and send messages.-->
     <script type="text/javascript">
 	
+		userNames = [];
+		userColors = [];
+	
+		var platformIcons = {};
+						
+		platformIcons["default"] = '<i class="fa fa-question"></i>';
+		platformIcons["android"] = '<i class="fa fa-android"></i>';
+		platformIcons["ios"] = '<i class="fa fa-apple"></i>';
+		platformIcons["winphone"] = '<i class="fa fa-windows"></i>';
+		platformIcons["windows"] = '<i class="fa fa-windows"></i>';
+		platformIcons["gnu/linux"] = '<i class="fa fa-linux"></i>';
+		platformIcons["safari"] = '<i class="fa fa-compass"></i>';
+		platformIcons["chrome"] = '<i class="fa fa-google"></i>';
+
         $(function () {
-			userNames = [];
-			userColors = [];
-		
-        //Set the hubs URL for the connection
+
+			//Set the hubs URL for the connection
             $.connection.hub.url = "http://mildestve.it:1337/signalr";
 
             // Declare a proxy to reference the hub.
             var chat = $.connection.dircHub;
 
-			var platformIcons = {};
-						
-			platformIcons["default"] = '<i class="fa fa-question"></i>';
-			platformIcons["android"] = '<i class="fa fa-android"></i>';
-			platformIcons["ios"] = '<i class="fa fa-apple"></i>';
-			platformIcons["winphone"] = '<i class="fa fa-windows"></i>';
-			platformIcons["windows"] = '<i class="fa fa-windows"></i>';
-			platformIcons["gnu/linux"] = '<i class="fa fa-linux"></i>';
-			platformIcons["safari"] = '<i class="fa fa-compass"></i>';
-			platformIcons["chrome"] = '<i class="fa fa-google"></i>';
+			
 			
 			Date.prototype.timeNow = function () {
 				return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
@@ -118,9 +121,9 @@
 				pink: "#ffc0cb",
 				purple: "#800080",
 				violet: "#800080",
-				//red: "#ff0000",
+				// red: "#ff0000",
 				silver: "#c0c0c0",
-				white: "#ffffff",
+				// white: "#ffffff",
 				yellow: "#ffff00"
 			};
 			
@@ -135,33 +138,12 @@
 			
             // Create a function that the hub can call to broadcast messages.
             chat.client.broadcastDirc = function (connectionId, user, platform, message) {				 
-				if((userNames[connectionId] == undefined)	){
+				if((userNames[connectionId] == undefined)){
 					userNames[connectionId] = user;
 					update_users();
 				}
 				
-				function GetTimespanDiv(){
-					return "<div style='width:5%;display:inline-block;color:#ff0000'>" +new Date().timeNow() + "</div>"
-				}
-			
-				function GetNameWithColor(){
-					return "<div style='width:8%;display:inline-block;color:" + userColors[connectionId] + "'>"+ (platformIcons[platform.toLowerCase()] || platformIcons["default"]) + " " + user + "</div>"
-				}
-				
-				function GetMessageDiv(){
-					return "<div style='width:87%;display:inline-block;color:" + userColors[connectionId] + "'>" + message + "</div>";
-				}
-				
-				var messageHtml = document.createTextNode(message);
-				var messageSpan = document.createElement('span');
-				messageSpan.style.color = "#32C900";
-				messageSpan.appendChild(messageHtml);
-			
-				$('#discussion')
-					.append(GetTimespanDiv())
-					.append(GetNameWithColor())
-					.append(GetMessageDiv())
-					.append('<br/>');
+				append_to_chat(userColors[connectionId], user, platform, message)
             };
 			
 			chat.client.broadcastConnect = function(connectionId) {
@@ -186,6 +168,8 @@
 			
             // Get the user name and store it to prepend to messages.
             $('#displayname').val(prompt('Enter your name:', ''));
+			userNames["self"] = $('#displayname').val();
+			userColors["self"] = '#ffffff';
             // Set initial focus to message input box.
             $('#message').focus();
             // Start the connection.
@@ -194,17 +178,36 @@
                     // Call the Send method on the hub.
 					chat.server.send($('#displayname').val(), get_browser(), $('#message').val());
                     // Clear text box and reset focus for next comment.
+					append_to_chat('#ffffff', $('#displayname').val(), get_browser(), $('#message').val());
                     $('#message').val('').focus();
                 });
             });
         });
 		
+		function append_to_chat(color, user, platform, message){
+			function GetTimespanDiv(){
+				return "<div style='width:5%;display:inline-block;color:#ff0000'>" +new Date().timeNow() + "</div>"
+			}
+		
+			function GetNameWithColor(){
+				return "<div style='width:8%;display:inline-block;color:" + color + "'>"+ (platformIcons[platform.toLowerCase()] || platformIcons["default"]) + " " + user + "</div>"
+			}
+			
+			function GetMessageDiv(){
+				return "<div style='width:87%;display:inline-block;color:" + color + "'>" + message + "</div>";
+			}
+		
+			$('#discussion')
+				.append(GetTimespanDiv())
+				.append(GetNameWithColor())
+				.append(GetMessageDiv())
+				.append('<br/>');
+		}
+		
 		function update_users(){
 			function GetUserDiv(user){
 				return "<div style='color:" + userColors[user] + "'>" + userNames[user] + "</div>";
 			}
-			
-			var userDivs;
 			
 			$('#users').empty();
 			
