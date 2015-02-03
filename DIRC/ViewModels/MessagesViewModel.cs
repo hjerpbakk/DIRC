@@ -15,7 +15,6 @@ namespace DIRC.ViewModels {
 		readonly Client client;
 		readonly INavigation navigation;
 		string message;
-		string selectedMessage;
 
 		public MessagesViewModel(INavigation navigation, string userName) {
 			this.navigation = navigation;

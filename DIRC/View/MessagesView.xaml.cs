@@ -13,6 +13,7 @@ namespace DIRC.View {
 			BindingContext = vm = new MessagesViewModel(Navigation, userName);
 			NavigationPage.SetHasBackButton(this, false);
             Device.OnPlatform(() => input.BackgroundColor = new Color(248D, 248D, 248D));
+			messages.HasUnevenRows = true;
 		}
 
 		protected override async void OnAppearing ()

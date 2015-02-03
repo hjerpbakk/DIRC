@@ -5,7 +5,7 @@
 	xmlns:local="clr-namespace:DIRC;assembly=DIRC" 
 	x:Class="DIRC.View.MessagesView" Title="{Binding Title}">
 	<StackLayout VerticalOptions="FillAndExpand">
-		<local:CustomListView ItemsSource="{Binding Messages}" HasUnevenRows="True" ItemSelected="MessageSelected" x:Name="messages">
+		<local:CustomListView x:Name="messages" ItemsSource="{Binding Messages}" ItemSelected="MessageSelected" >
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<local:CustomListViewCell Text="{Binding Text}" IsMe="{Binding IsItMe}" />

@@ -20,6 +20,26 @@ namespace DIRC
 			get{ return (string)GetValue (TextProperty);}
 			set{ SetValue (IsMeProperty, value); }
 		}
+
+		const int avgCharsInRow = 10;
+		const int defaultHeight = 44;
+		const int extraLineHeight = 20;
+		protected override void OnBindingContextChanged ()
+		{
+			base.OnBindingContextChanged ();
+			if (Device.OS == TargetPlatform.iOS) { // don't bother on the other platforms
+				var text = ((DIRC.ViewModels.DIRCMessage)BindingContext).Text;
+				var len = text.Length;
+				if (len < (avgCharsInRow * 2)) {
+					// fits in one cell
+					Height = defaultHeight;
+				} else {
+					len = len - (avgCharsInRow * 2);
+					var extraRows = len / 35;
+					Height = defaultHeight + extraRows * extraLineHeight;
+				}
+			}
+		}
 	}
 }
 

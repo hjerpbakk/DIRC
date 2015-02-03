@@ -44,12 +44,14 @@ namespace DIRC.iOS
 			view = new UIView (rect);
 			imageView = new UIImageView (isLeft ? left : right);
 			view.AddSubview (imageView);
+
 			label = new UILabel (rect) {
 				LineBreakMode = UILineBreakMode.WordWrap,
 				Lines = 0,
 				Font = font,
 				BackgroundColor = UIColor.Clear
 			};
+
 			view.AddSubview (label);
 			ContentView.Add (view);
 		}
@@ -69,7 +71,7 @@ namespace DIRC.iOS
 
 		static internal CGSize GetSizeForText (UIView tv, string text)
 		{
-			return UIStringDrawing.StringSize (text, font, new CGSize (tv.Bounds.Width*.7f-10-22, 99999));
+			return UIStringDrawing.StringSize (text, font, new CGSize (tv.Bounds.Width*.8f-10-22, 99999));
 		}
 
 		public void Update (string text)
