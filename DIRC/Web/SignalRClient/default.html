@@ -70,6 +70,7 @@
 	
 		userNames = [];
 		userColors = [];
+		userPlatforms = [];
 	
 		var platformIcons = {};
 						
@@ -145,6 +146,7 @@
 		$('#displayname').val(prompt('Enter your name:', ''));
 		userNames["self"] = $('#displayname').val();
 		userColors["self"] = '#ffffff';
+		userPlatforms["self"] = get_browser();
 		
 		// Set initial focus to message input box.
 		$('#message').focus();
@@ -163,8 +165,13 @@
 					userNames[connectionId] = user;
 					update_users();
 				}
+
+				if((userPlatforms[connectionId] == undefined)){
+					userPlatforms[connectionId] = platform;
+					update_users();
+				}
 				
-				append_to_chat(userColors[connectionId], user, platform, message)
+				append_to_chat(connectionId, message)
 				$(document).scrollTop($(document).height());
             };
 			
@@ -181,9 +188,10 @@
 			}
 			
 			chat.client.broadcastDisconnect = function(connectionId) {
-				if((userNames[connectionId] != undefined)){
+				if((userColors[connectionId] != undefined)){
 					userNames[connectionId] = undefined;
 					userColors[connectionId] = undefined;
+					userPlatforms[connectionId] = undefined;
 					update_users();
 				}
 			}
@@ -200,24 +208,24 @@
             });
         });
 		
-		function append_to_chat(color, user, platform, message){
+		function append_to_chat(user, message){
 			function GetTimespanDiv(){
-				return "<div style='width:5%;display:inline-block;color:#ff0000'>" +new Date().timeNow() + "</div>"
-			}
-		
-			function GetNameWithColor(){
-				return "<div style='width:8%;display:inline-block;color:" + color + "'>"+ (platformIcons[platform.toLowerCase()] || platformIcons["default"]) + " " + user + "</div>"
+				return "<div style='width:5%;display:inline-block;color:#ff0000'>" +new Date().timeNow() + "</div>";
 			}
 			
 			function GetMessageDiv(){
-				return "<div style='width:87%;display:inline-block;color:" + color + "'>" + message + "</div>";
+				return "<div style='width:87%;display:inline-block;color:" + userColors[user] + "'>" + message + "</div>";
 			}
 		
 			$('#discussion')
 				.append(GetTimespanDiv())
-				.append(GetNameWithColor())
+				.append(GetUserDivWithColor(user))
 				.append(GetMessageDiv())
 				.append('<br/>');
+		}
+
+		function GetUserDivWithColor(user){
+			return "<div style='width:8%;display:inline-block;color:" + userColors[user] + "'>"+ (platformIcons[userPlatforms[user].toLowerCase()] || platformIcons["default"]) + " " + userNames[user] + "</div>";
 		}
 		
 		function update_users(){
@@ -227,9 +235,9 @@
 			
 			$('#users').empty();
 			
-			for (key in userNames) {
-				if (userNames[key] != undefined && userColors[key] != undefined){
-					$('#users').append(GetUserDiv(key));
+			for (key in userColors) {
+				if (userNames[key] != undefined && userColors[key] != undefined && userPlatforms[key] != undefined){
+					$('#users').append(GetUserDivWithColor(key));
 				}
 			}
 		}
