@@ -202,7 +202,7 @@
                     // Call the Send method on the hub.
 					chat.server.send($('#displayname').val(), get_browser(), $('#message').val());
                     // Clear text box and reset focus for next comment.
-					append_to_chat('#ffffff', $('#displayname').val(), get_browser(), $('#message').val());
+					append_to_chat("self", $('#message').val());
                     $('#message').val('').focus();
                 });
             });
@@ -238,6 +238,7 @@
 			for (key in userColors) {
 				if (userNames[key] != undefined && userColors[key] != undefined && userPlatforms[key] != undefined){
 					$('#users').append(GetUserDivWithColor(key));
+					$('#users').append("</br>");
 				}
 			}
 		}
