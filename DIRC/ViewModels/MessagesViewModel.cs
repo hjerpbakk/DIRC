@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using DIRC.IRC;
 using System.Threading.Tasks;
 using DIRC.View;
+using System.Linq;
 
 namespace DIRC.ViewModels {
 	public class MessagesViewModel : ViewModelBase {
@@ -16,12 +17,15 @@ namespace DIRC.ViewModels {
 		readonly INavigation navigation;
 		string message;
 
+		readonly ObservableCollection<DircUser> users;
+
 		public MessagesViewModel(INavigation navigation, string userName) {
 			this.navigation = navigation;
 			this.userName = userName;
 			client = new Client(userName);
 			sendCommand = new Command(() => Send(), () => !string.IsNullOrEmpty(message));
 			messages = new ObservableCollection<DIRCMessage>();
+			users = new ObservableCollection<DircUser>();
 		}
 
 		public string Title { get { return userName; } }
@@ -42,6 +46,13 @@ namespace DIRC.ViewModels {
 		public async Task Init() {
 			try {
 				client.OnMessageReceived += HandleOnMessageReceived;
+				client.OnNewUser += (sender, user) => users.Add(user);
+				client.OnUserLeft += (sender, id) => {
+					var user = users.SingleOrDefault(u => u.ConnectionId == id);
+					if (user != null) {
+						users.Remove(user);
+					}
+				};
 				await client.Connect();
 				message = "Connected";
 				await Send();
