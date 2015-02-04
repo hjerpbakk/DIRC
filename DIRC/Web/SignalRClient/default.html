@@ -37,21 +37,26 @@
 			bottom: 2px;
 			left: 5px;
 			width: 100%;
+			height: 20px;
 		}
 		#message{
 			width: 50%;
 		}
     </style>
 	<link rel="stylesheet" href="css/font-awesome.min.css" />
+	<link rel="stylesheet" href="css/fontello.css">
+	<link rel="stylesheet" href="css/animation.css">
 </head>
 <body>
-	<div id="userWindow">
-		<h3>Users</h3>
-		<div id="users"></div>
+	<div id="userWindowContainer">
+		<div id="userWindow">
+			<h3>Users</h3>
+			<div id="users"></div>
+		</div>
 	</div>
     <div id="chatContainer" class="container">
         <input type="hidden" id="displayname" />
-        <ul id="discussion"></ul>
+        <div id="discussion"></div>
     </div>
 	<div id="messageContainer">
 		<input type="text" id="message" />
@@ -75,13 +80,17 @@
 		var platformIcons = {};
 						
 		platformIcons["default"] = '<i class="fa fa-question"></i>';
+		//platformIcons["default"] = '<i class="icon-opera"></i>';
 		platformIcons["android"] = '<i class="fa fa-android"></i>';
 		platformIcons["ios"] = '<i class="fa fa-apple"></i>';
 		platformIcons["winphone"] = '<i class="fa fa-windows"></i>';
 		platformIcons["windows"] = '<i class="fa fa-windows"></i>';
 		platformIcons["gnu/linux"] = '<i class="fa fa-linux"></i>';
 		platformIcons["safari"] = '<i class="fa fa-compass"></i>';
-		platformIcons["chrome"] = '<i class="fa fa-google"></i>';
+		platformIcons["chrome"] = '<i class="icon-chrome"></i>';
+		platformIcons["opera"] = '<i class="icon-opera"></i>';
+		platformIcons["ie"] = '<i class="icon-ie"></i>';
+		platformIcons["firefox"] = '<i class="icon-firefox"></i>';
 
 		Date.prototype.timeNow = function () {
 			return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
@@ -170,7 +179,7 @@
 					userPlatforms[connectionId] = platform;
 					update_users();
 				}
-				
+
 				append_to_chat(connectionId, message)
 				$(document).scrollTop($(document).height());
             };
@@ -229,10 +238,6 @@
 		}
 		
 		function update_users(){
-			function GetUserDiv(user){
-				return "<div style='color:" + userColors[user] + "'>" + userNames[user] + "</div>";
-			}
-			
 			$('#users').empty();
 			
 			for (key in userColors) {
