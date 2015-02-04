@@ -29,11 +29,7 @@ html,body {
 }
 
 #chat_table {
-	overflow: hidden;
 	word-wrap: break-word;
-	table-layout: fixed;
-	margin-left: 2.5%;
-	margin-right: 15%;
 }
 
 #user_container {
@@ -44,20 +40,24 @@ html,body {
 	right: 5px;
 	background-color: #44404C;
 	width: 15%;
-	height: 100%;
+	height: 90%;
 }
 
 #chat_container {
 	background-color: #000000;
     color: #00ff00;
-	padding-bottom: 20px;
-	width: 75%;
+    border: 1px dashed;
+    top: 5px;
+	bottom: 25px;
+	width: 83%;
+	position: fixed;
 	overflow-x: hidden;
+	overflow-y: scroll;
 }
 
 #message_container {
 	position: fixed;
-	bottom: 2px;
+	bottom: 4px;
 	left: 5px;
 	width: 100%;
 	height: 20px;

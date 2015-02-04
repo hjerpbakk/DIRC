@@ -213,7 +213,7 @@
 		
 		function append_to_chat(user_id, message) {
 			$('#chat_table tbody').append(get_chat_row(user_id, message));
-			window.scrollTo(0,document.body.scrollHeight);
+			$("#chat_container").scrollTop($("#chat_container")[0].scrollHeight);
 		}
 
 		function get_chat_row(user_id, message) {
