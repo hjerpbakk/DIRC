@@ -17,46 +17,42 @@
 	<script src="http://localhost:1337/signalr/hubs"></script>
 
 
-	<div id="userWindowContainer">
-		<div id="userWindow">
-			<h3>Users</h3>
-			<table class="userTable" id="users">
-			</table>
-		</div>
+	<div id="user_window">
+		<h3>Users</h3>
+		<table id="user_table"></table>
 	</div>
-    <div id="chatContainer" class="container">
-        <input type="hidden" id="displayname" />
-		<table class="chatTable" id="discussion" cellpadding="5px">
-			<tbody>
-			</tbody>
+    <div id="chat_container">
+        <input type="hidden" id="displayname"/>
+		<table id="chat_table">
+			<tbody></tbody>
 		</table>
     </div>
-	<div id="messageContainer">
+	<div id="message_container">
 		<input type="text" id="message" onkeypress="return send_enter(this,event)"/>
-		<input type="button" id="sendmessage" value="Send" />
+		<input type="button" id="sendmessage" value="Send"/>
 	</div>
 
 	<script type="text/javascript">
 		
 		var chat;
 		
-		userNames = [];
-		userColors = [];
-		userPlatforms = [];
+		user_names = [];
+		user_colors = [];
+		user_platforms = [];
 	
-		var platformIcons = [];
+		var platform_icons = [];
 						
-		platformIcons["default"] = '<i class="fa fa-question"></i>';
-		platformIcons["android"] = '<i class="fa fa-android"></i>';
-		platformIcons["ios"] = '<i class="fa fa-apple"></i>';
-		platformIcons["winphone"] = '<i class="fa fa-windows"></i>';
-		platformIcons["windows"] = '<i class="fa fa-windows"></i>';
-		platformIcons["gnu/linux"] = '<i class="fa fa-linux"></i>';
-		platformIcons["safari"] = '<i class="fa fa-compass"></i>';
-		platformIcons["chrome"] = '<i class="icon-chrome"></i>';
-		platformIcons["opera"] = '<i class="icon-opera"></i>';
-		platformIcons["ie"] = '<i class="icon-ie"></i>';
-		platformIcons["firefox"] = '<i class="icon-firefox"></i>';
+		platform_icons["default"] = '<i class="fa fa-question"></i>';
+		platform_icons["android"] = '<i class="fa fa-android"></i>';
+		platform_icons["ios"] = '<i class="fa fa-apple"></i>';
+		platform_icons["winphone"] = '<i class="fa fa-windows"></i>';
+		platform_icons["windows"] = '<i class="fa fa-windows"></i>';
+		platform_icons["gnu/linux"] = '<i class="fa fa-linux"></i>';
+		platform_icons["safari"] = '<i class="fa fa-compass"></i>';
+		platform_icons["chrome"] = '<i class="icon-chrome"></i>';
+		platform_icons["opera"] = '<i class="icon-opera"></i>';
+		platform_icons["ie"] = '<i class="icon-ie"></i>';
+		platform_icons["firefox"] = '<i class="icon-firefox"></i>';
 
 		Date.prototype.timeNow = function () {
 			return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
@@ -118,13 +114,13 @@
 		// Get the user name and store it to prepend to messages.
 		$('#displayname').val(prompt('Enter your name:', ''));
 		// add hub user
-		userNames["DircHub"] = "DircHub";
-		userColors["DircHub"] = '#00ff00';
-		userPlatforms["DircHub"] = "gnu/linux";
+		user_names["DircHub"] = "DircHub";
+		user_colors["DircHub"] = '#00ff00';
+		user_platforms["DircHub"] = "gnu/linux";
 		// add self user
-		userNames["self"] = $('#displayname').val();
-		userColors["self"] = '#ffffff';
-		userPlatforms["self"] = get_browser();
+		user_names["self"] = $('#displayname').val();
+		user_colors["self"] = '#ffffff';
+		user_platforms["self"] = get_browser();
 		update_users();
 		
 		// Set initial focus to message input box.
@@ -139,8 +135,8 @@
             // Declare a proxy to reference the hub.
             chat = $.connection.dircHub;
 
-			chat.client.broadcastDircMessage = function (connectionId, message) {				 
-				append_to_chat(connectionId, message)
+			chat.client.broadcastDircMessage = function (user_id, message) {				 
+				append_to_chat(user_id, message)
 				$(document).scrollTop($(document).height());
             };
 			
@@ -156,12 +152,12 @@
 				}
 			};
 			
-			chat.client.broadcastNewUser = function(connectionId, userName, platform) {
-				add_user(connectionId, userName, platform);
+			chat.client.broadcastNewUser = function(user_id, user_name, platform) {
+				add_user(user_id, user_name, platform);
 			};
 			
-			chat.client.broadcastUserLeft = function(connectionId) {
-				remove_user(connectionId)
+			chat.client.broadcastUserLeft = function(user_id) {
+				remove_user(user_id)
 			};
 			
             // Start the connection.
@@ -174,7 +170,7 @@
         });
 		
 		// enter to send
-		function send_enter(myfield,e){
+		function send_enter(myfield, e){
 			var keycode;
 			if (window.event) keycode = window.event.keyCode;
 			else if (e) keycode = e.which;
@@ -188,13 +184,6 @@
 			else
 			   return true;
 		}
-		
-		//function send_message() {
-		//	chat.server.send($('#displayname').val(), get_browser(), $('#message').val());
-		//	// Clear text box and reset focus for next comment.
-		//	append_to_chat("self", $('#message').val());
-		//	$('#message').val('').focus();
-		//}
 
 		function send_message() {
 			chat.server.sendDircMessage($('#message').val());
@@ -203,74 +192,92 @@
 			$('#message').val('').focus();
 		}
 		
-		function add_user(connectionId, userName, platform) {
-			if(userColors[connectionId] == undefined){
-				userColors[connectionId] = Colors.random();
-				userNames[connectionId] = userName;
-				userPlatforms[connectionId] = platform;
+		function add_user(user_id, user_name, platform) {
+			if(user_colors[user_id] == undefined){
+				user_colors[user_id] = Colors.random();
+				user_names[user_id] = user_name;
+				user_platforms[user_id] = platform;
 				update_users();
 			}
 		}
 		
-		function remove_user(connectionId) {
-			if(userColors[connectionId] != undefined){
-				userNames[connectionId] = undefined;
-				userColors[connectionId] = undefined;
-				userPlatforms[connectionId] = undefined;
+		function remove_user(user_id) {
+			if(user_colors[user_id] != undefined){
+				user_names[user_id] = undefined;
+				user_colors[user_id] = undefined;
+				user_platforms[user_id] = undefined;
 				update_users();
 			}
 		}
 		
-		function append_to_chat(user, message){
-			function GetTimespanDiv(){
-				return "<td><div style='display:inline-block;color:#ff0000'>" +new Date().timeNow() + "</div></td>";
-			}
-			
-			function GetMessageDiv(){
-				return "<td><div style='display:inline-block;color:" + userColors[user] + "'>" + message + "</div></td>";
-			}
-		
-			$('#discussion tbody')
-				.append("<tr>")
-				.append(GetTimespanDiv())
-				.append(GetUserDivWithColor(user))
-				.append(GetMessageDiv())
-				.append("</tr>");
+		function append_to_chat(user_id, message) {
+			$('#chat_table tbody').append(get_chat_row(user_id, message));
 		}
 
-		function GetUserDivWithColor(user){
-			return "<td><div style='text-align:center;color:" + userColors[user] + "'>" + GetPlatformIcon(userPlatforms[user].toLowerCase()) + "</div></td><td><div style='display:inline-block;color:" + userColors[user] + "'>" + userNames[user] + "</div></td>";
+		function get_chat_row(user_id, message) {
+			var chat_row = [
+				"<tr>",
+				get_timestamp_cell(),
+				get_platform_cell(user_id),
+				get_user_cell(user_id),
+				get_message_cell(user_id, message),
+				"</tr>"
+			];
+			return chat_row.join();
+		}
+
+		function get_timestamp_cell() {
+			return "<td class='timespan_cell'>" + new Date().timeNow() + "</td>";
+		}
+
+		function get_platform_cell(user_id) {
+			return "<td class='platform_cell' style='color:" + user_colors[user_id] + "'>" + get_platform_icon(user_platforms[user_id].toLowerCase()) + "</td>";
+		}
+
+		function get_user_cell(user_id) {
+			return "<td class='user_cell' style='color:" + user_colors[user_id] + "'>" + user_names[user_id] + "</td>";
+		}
+
+		function get_message_cell(user_id, message) {
+			return "<td class='message_cell style='color:" + user_colors[user_id] + "'>" + message + "</td>";
 		}
 		
-		function GetPlatformIcon(platform){
-			var iconKey = "default";
-			for (key in platformIcons) {
+		function get_platform_icon(platform) {
+			var icon_key = "default";
+			for (platform_key in platform_icons) {
 				// a simple search here may not be the best idea, but let's see what happens...
-				res = platform.search(key);
+				res = platform.search(platform_key);
 				if (res != -1) {
-					iconKey = key;
+					icon_key = platform;
 					break;
 				}
 			}
 			
-			return platformIcons[iconKey];
+			return platform_icons[icon_key];
 		}
 		
-		function update_users(){
-			$('#users').empty();
+		function update_users() {
+			$('#user_table').empty();
 			
-			$('#users').append('<tbody>');
+			$('#user_table').append('<tbody>');
 			
-			for (key in userColors) {
-				if (userNames[key] != undefined && userColors[key] != undefined && userPlatforms[key] != undefined){
-					$('#users tbody').append('<tr>' + GetUserDivWithColor(key) + '</tr>');
+			for (user_id in user_colors) {
+				if (user_names[user_id] != undefined && user_colors[user_id] != undefined && user_platforms[user_id] != undefined) {
+					var user_row = [
+						"<tr>",
+						get_platform_cell(user_id),
+						get_user_cell(user_id),
+						"</tr>"
+					];
+
+					$('#user_table tbody').append(user_row.join());
 				}
 			}
 			
-			$('#users').append('</tbody>');
+			$('#user_table').append('</tbody>');
 		}
 		
-		function get_browser(){
+		function get_browser() {
 			var ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || []; 
 			if(/trident/i.test(M[1])){
 				tem=/\brv[ :]+(\d+)/g.exec(ua) || []; 
