@@ -52,6 +52,7 @@ html,body {
     color: #00ff00;
 	padding-bottom: 20px;
 	width: 75%;
+	overflow-x: hidden;
 }
 
 #message_container {

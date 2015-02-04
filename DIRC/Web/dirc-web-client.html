@@ -138,12 +138,11 @@
             chat = $.connection.dircHub;
 
 			chat.client.broadcastDircMessage = function (user_id, message) {				 
-				append_to_chat(user_id, message)
-				$(document).scrollTop($(document).height());
+				append_to_chat(user_id, message);
             };
 			
 			chat.client.broadcastHubMessage = function (message) {				 
-				append_to_chat("DircHub", message)
+				append_to_chat("DircHub", message);
 				$(document).scrollTop($(document).height());
             };
 			
@@ -159,7 +158,7 @@
 			};
 			
 			chat.client.broadcastUserLeft = function(user_id) {
-				remove_user(user_id)
+				remove_user(user_id);
 			};
 			
             // Start the connection.
@@ -214,6 +213,7 @@
 		
 		function append_to_chat(user_id, message) {
 			$('#chat_table tbody').append(get_chat_row(user_id, message));
+			window.scrollTo(0,document.body.scrollHeight);
 		}
 
 		function get_chat_row(user_id, message) {
