@@ -16,6 +16,8 @@ namespace WebSocketSpike.LocalWebServer
                 AddNewUser(Context.ConnectionId, userName, platform);
             }
 
+            message = CleanMessage(message);
+
             Console.WriteLine("Broadcast message \"{0}\" from {1} to others.", message, Context.ConnectionId);
             Clients.Others.broadcastMessage(userName, platform, message);
             Clients.Others.broadcastDircMessage(Context.ConnectionId, message);
@@ -29,8 +31,15 @@ namespace WebSocketSpike.LocalWebServer
                 return;
             }
 
+            message = CleanMessage(message);
+
             Console.WriteLine("Broadcast message \"{0}\" from {1} to others.", message, Context.ConnectionId);
             Clients.Others.broadcastDircMessage(Context.ConnectionId, message);
+        }
+
+        private string CleanMessage(string message)
+        {
+            return Microsoft.JScript.GlobalObject.escape(message);
         }
 
         public void Register(string userName, string platform)
