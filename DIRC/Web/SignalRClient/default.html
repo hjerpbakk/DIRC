@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>SignalR Simple Chat</title>
+	<meta charset="UTF-8">
     <style type="text/css">
         html,body{
 			height:100%;
@@ -77,10 +78,9 @@
 		userColors = [];
 		userPlatforms = [];
 	
-		var platformIcons = {};
+		var platformIcons = [];
 						
 		platformIcons["default"] = '<i class="fa fa-question"></i>';
-		//platformIcons["default"] = '<i class="icon-opera"></i>';
 		platformIcons["android"] = '<i class="fa fa-android"></i>';
 		platformIcons["ios"] = '<i class="fa fa-apple"></i>';
 		platformIcons["winphone"] = '<i class="fa fa-windows"></i>';
@@ -228,13 +228,27 @@
 		
 			$('#discussion')
 				.append(GetTimespanDiv())
-				.append(GetUserDivWithColor(user))
+				.append(GetUserDivWithColor(user, "8%"))
 				.append(GetMessageDiv())
 				.append('<br/>');
 		}
 
-		function GetUserDivWithColor(user){
-			return "<div style='width:8%;display:inline-block;color:" + userColors[user] + "'>"+ (platformIcons[userPlatforms[user].toLowerCase()] || platformIcons["default"]) + " " + userNames[user] + "</div>";
+		function GetUserDivWithColor(user, width){
+			return "<div style='width:" + width + ";display:inline-block;color:" + userColors[user] + "'>" + GetPlatformIcon(userPlatforms[user].toLowerCase()) + " " + userNames[user] + "</div>";
+		}
+		
+		function GetPlatformIcon(platform){
+			var iconKey = "default";
+			for (key in platformIcons) {
+				// a simple search here may not be the best idea, but let's see what happens...
+				res = platform.search(key);
+				if (res != -1) {
+					iconKey = key;
+					break;
+				}
+			}
+			
+			return platformIcons[iconKey];
 		}
 		
 		function update_users(){
@@ -242,7 +256,7 @@
 			
 			for (key in userColors) {
 				if (userNames[key] != undefined && userColors[key] != undefined && userPlatforms[key] != undefined){
-					$('#users').append(GetUserDivWithColor(key));
+					$('#users').append(GetUserDivWithColor(key, "100%"));
 					$('#users').append("</br>");
 				}
 			}
