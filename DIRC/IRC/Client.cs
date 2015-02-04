@@ -16,6 +16,8 @@ namespace DIRC.IRC
 
 		public event EventHandler<string> OnMessageReceived;
 		public event EventHandler<IList<DircUser>> OnConnectedToHub;
+		public event EventHandler<DircUser> OnNewUser;
+		public event EventHandler<string> OnUserLeft;
 
 		public Client(string userName)
 		{
@@ -36,6 +38,22 @@ namespace DIRC.IRC
 					var connectedToHub = OnConnectedToHub;
 					if (connectedToHub != null) {
 						connectedToHub(this, users.Cast<DircUser>().ToList());
+					}
+				});
+
+			hub.On("broadcastNewUser", (string connectionId, string theUserName, string thePlatform) =>
+				{
+					var onNewUser = OnNewUser;
+					if (onNewUser != null) {
+						onNewUser(this, new DircUser { ConnectionId = connectionId, UserName = theUserName, Platform = thePlatform });
+					}
+				});
+
+			hub.On("broadcastUserLeft", (string connectionId) =>
+				{
+					var onUserLeft = OnUserLeft;
+					if (onUserLeft != null) {
+						onUserLeft(this, connectionId);
 					}
 				});
 		}
