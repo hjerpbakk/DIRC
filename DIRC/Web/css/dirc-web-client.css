@@ -5,7 +5,7 @@ html,body {
 }
 
 .timespan_cell {
-	display: inline-block;
+	vertical-align: top;
 	color: #ff0000;
 }
 
@@ -14,11 +14,13 @@ html,body {
 }
 
 .platform_cell {
+	vertical-align: top;
 	text-align: center;
 	padding-left: 10px;
 }
 
 .user_cell {
+	vertical-align: top;
 	padding-right: 15px;
 }
 
@@ -27,20 +29,22 @@ html,body {
 }
 
 #chat_table {
-
+	overflow: hidden;
+	word-wrap: break-word;
+	table-layout: fixed;
+	margin-left: 2.5%;
+	margin-right: 15%;
 }
 
-#user_window {
+#user_container {
 	padding-left: 5px;
 	padding-right: 5px;
-	padding-bottom: 10px;
  	border: 1px dashed;
 	position: fixed;
-	top: 40px;
 	right: 5px;
 	background-color: #44404C;
-	width: 20%;
-	height: 80%;
+	width: 15%;
+	height: 100%;
 }
 
 #chat_container {
