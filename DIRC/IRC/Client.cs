@@ -29,7 +29,7 @@ namespace DIRC.IRC
 				{
 					var messageReceived = OnMessageReceived;
 					if (messageReceived != null) {
-						messageReceived(this, string.Format("{0} ({1}): {2}", theUserName, thePlatform, message));
+						messageReceived(this, string.Format("{0} {1} {2}", theUserName, DircUser.GetPlatformText(thePlatform), message));
 					}
 				});
 
