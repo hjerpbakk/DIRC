@@ -7,7 +7,7 @@ namespace WebSocketSpike.LocalWebServer
 {
     public class DircHub : Hub
     {
-        private static List<DircUser> users = new List<DircUser>(); 
+        private static List<DircUser> users = new List<DircUser>();
 
         public void Send(string userName, string platform, string message)
         {
@@ -40,6 +40,8 @@ namespace WebSocketSpike.LocalWebServer
                 Clients.Caller.broadcastActiveUsers(users.ToArray());
                 AddNewUser(Context.ConnectionId, userName, platform);
             }
+
+            Clients.Caller.broadcastHubMessage("Welcome to DIRC!");
         }
 
         private void AddNewUser(string connectionId, string userName, string platform)
@@ -54,7 +56,6 @@ namespace WebSocketSpike.LocalWebServer
         {
             Console.WriteLine("Connection from {0}", Context.ConnectionId);
             Clients.Caller.broadcastMessage("DircHub", "GNU/Linux", "Welcome to DIRC!");
-            Clients.Caller.broadcastDirc(string.Empty, "DircHub", "GNU/Linux", "Welcome to DIRC!");
             return base.OnConnected();
         }
 
