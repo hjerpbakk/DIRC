@@ -8,6 +8,8 @@ namespace WebSocketSpike.LocalWebServer
 {
     public class DircHub : Hub
     {
+        private const int MaxUserNameLength = 20;
+
         private static List<DircUser> users = new List<DircUser>();
 
         public override Task OnConnected()
@@ -82,7 +84,7 @@ namespace WebSocketSpike.LocalWebServer
         private static string CleanUserName(string userName)
         {
             userName = CleanInput(userName);
-            userName = userName.Length > 10 ? userName.Substring(0, 10) : userName;
+            userName = userName.Length > MaxUserNameLength ? userName.Substring(0, MaxUserNameLength) : userName;
             return userName;
         }
 
