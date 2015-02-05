@@ -6,7 +6,7 @@ API
 
 
 User (JSON) {
-	string ConnectionId
-	string platform
+	string ConnectionId,
+	string platform,
 	string userName
 }
