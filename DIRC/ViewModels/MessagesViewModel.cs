@@ -16,7 +16,6 @@ namespace DIRC.ViewModels {
 		readonly ObservableCollection<DIRCMessage> messages;
 		readonly Client client;
 
-		string usersText;
 		string message;
 		ObservableCollection<DircUser> users;
 
@@ -31,7 +30,6 @@ namespace DIRC.ViewModels {
 				}
 			);
 			messages = new ObservableCollection<DIRCMessage>();
-			UsersText = "Users";
 		}
 
 		public string Title { get { return userName; } }
@@ -48,14 +46,6 @@ namespace DIRC.ViewModels {
 			}
 		}
 
-		public string UsersText {
-			get { return usersText; }
-			set {
-				usersText = value;
-				OnPropertyChanged();
-			}
-		}
-
 		public Command SendCommand { get { return sendCommand; } }
 		public Command ShowUsers { get { return showUsers; } }
 
@@ -64,17 +54,12 @@ namespace DIRC.ViewModels {
 				client.OnMessageReceived += HandleOnMessageReceived;
 				client.OnConnectedToHub += (sender, theUsers) => {
 					Users = new ObservableCollection<DircUser>(theUsers);
-					UpdateUsersText();
 				};
-				client.OnNewUser += (sender, user) => {
-					Users.Add(user);
-					UpdateUsersText();
-				};
+				client.OnNewUser += (sender, user) => Users.Add(user);
 				client.OnUserLeft += (sender, id) => {
 					var user = Users.SingleOrDefault(u => u.ConnectionId == id);
 					if (user != null) {
 						Users.Remove(user);
-						UpdateUsersText();
 					}
 				};
 				await client.Connect();
@@ -102,10 +87,6 @@ namespace DIRC.ViewModels {
 
 		void HandleOnMessageReceived(object sender, string theMessage) {
 			ShowMessage(new DIRCMessage{ Text = theMessage, FromOthers = true });
-		}
-
-		void UpdateUsersText() {
-			UsersText = Users.Count + " Users";
 		}
 	}
 
