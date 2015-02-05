@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 
@@ -39,7 +40,7 @@ namespace WebSocketSpike.LocalWebServer
 
         private string CleanMessage(string message)
         {
-            return Microsoft.JScript.GlobalObject.escape(message);
+            return Regex.Replace(message, @"[^\w\s\-\+]", "");
         }
 
         public void Register(string userName, string platform)
