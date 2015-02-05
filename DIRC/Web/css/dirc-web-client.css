@@ -24,6 +24,15 @@ html,body {
 	padding-right: 15px;
 }
 
+#users_tag {
+	position: fixed;
+	height: 40px;
+	right: 5px;
+	top: 0px;
+	width: 15%;
+	text-align: left;
+}
+
 #user_table {
 
 }
@@ -33,6 +42,7 @@ html,body {
 }
 
 #user_container {
+	top: 40px;
 	padding-left: 5px;
 	padding-right: 5px;
  	border: 1px dashed;
@@ -41,6 +51,7 @@ html,body {
 	background-color: #44404C;
 	width: 15%;
 	height: 90%;
+	overflow-y: scroll;
 }
 
 #chat_container {
