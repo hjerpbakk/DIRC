@@ -7,6 +7,7 @@ using DIRC.IRC;
 using System.Threading.Tasks;
 using DIRC.View;
 using System.Linq;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace DIRC.ViewModels {
 	public class MessagesViewModel : ViewModelBase {
@@ -15,9 +16,9 @@ namespace DIRC.ViewModels {
 		readonly ObservableCollection<DIRCMessage> messages;
 		readonly Client client;
 		readonly INavigation navigation;
-		string message;
 
-		readonly ObservableCollection<DircUser> users;
+		string message;
+		ObservableCollection<DircUser> users;
 
 		public MessagesViewModel(INavigation navigation, string userName) {
 			this.navigation = navigation;
@@ -25,12 +26,12 @@ namespace DIRC.ViewModels {
 			client = new Client(userName);
 			sendCommand = new Command(() => Send(), () => !string.IsNullOrEmpty(message));
 			messages = new ObservableCollection<DIRCMessage>();
-			users = new ObservableCollection<DircUser>();
 		}
 
 		public string Title { get { return userName; } }
 
 		public ObservableCollection<DIRCMessage> Messages { get { return messages; } }
+		public ObservableCollection<DircUser> Users { get { return users; } set { users = value; OnPropertyChanged(); }}
 
 		public string Message {
 			get { return message; }
@@ -46,11 +47,19 @@ namespace DIRC.ViewModels {
 		public async Task Init() {
 			try {
 				client.OnMessageReceived += HandleOnMessageReceived;
-				client.OnNewUser += (sender, user) => users.Add(user);
+				client.OnConnectedToHub += (sender, theUsers) => {
+					Users = new ObservableCollection<DircUser>(theUsers);
+					Messenger.Default.Send(Users.Count);
+				};
+				client.OnNewUser += (sender, user) => {
+					Users.Add(user);
+					Messenger.Default.Send(Users.Count);
+				};
 				client.OnUserLeft += (sender, id) => {
-					var user = users.SingleOrDefault(u => u.ConnectionId == id);
+					var user = Users.SingleOrDefault(u => u.ConnectionId == id);
 					if (user != null) {
-						users.Remove(user);
+						Users.Remove(user);
+						Messenger.Default.Send(Users.Count);
 					}
 				};
 				await client.Connect();

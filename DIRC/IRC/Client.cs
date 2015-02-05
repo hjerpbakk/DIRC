@@ -11,7 +11,7 @@ namespace DIRC.IRC
     public class Client
     {
 		public event EventHandler<string> OnMessageReceived;
-		public event EventHandler<IList<DircUser>> OnConnectedToHub;
+		public event EventHandler<ICollection<DircUser>> OnConnectedToHub;
 		public event EventHandler<DircUser> OnNewUser;
 		public event EventHandler<string> OnUserLeft;
 
@@ -57,7 +57,7 @@ namespace DIRC.IRC
 				var connectedToHub = OnConnectedToHub;
                 if (connectedToHub != null)
                 {
-					
+					connectedToHub(this, users.Values);
                 }
             });
 
