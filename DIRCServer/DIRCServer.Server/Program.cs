@@ -1,20 +1,14 @@
-﻿// <copyright file="Program.cs" company="DIPS ASA">
-// </copyright>
-// <summary>
-//   This is the local web service running on the local device.
-// </summary>
-
-using System;
+﻿using System;
 using System.Reflection;
 using Microsoft.Owin.Hosting;
 
-namespace WebSocketSpike.LocalWebServer
+namespace DIRCServer.Server
 {
     internal class Program
     {
         private static void Main(string[] args)
         {
-            const string UrlWebServer = "http://*:1337/";
+            const string UrlWebServer = "http://*:14507/";
 
             using (WebApp.Start<Startup>(UrlWebServer))
             {

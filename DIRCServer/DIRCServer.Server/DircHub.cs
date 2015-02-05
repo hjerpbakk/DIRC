@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNet.SignalR;
 
-namespace WebSocketSpike.LocalWebServer
+namespace DIRCServer.Server
 {
     public class DircHub : Hub
     {
@@ -30,22 +30,6 @@ namespace WebSocketSpike.LocalWebServer
         {
             Console.WriteLine("OnReconnected from {0}", Context.ConnectionId);
             return base.OnReconnected();
-        }
-
-        public void Send(string userName, string platform, string message)
-        {
-            userName = CleanUserName(userName);
-            message = CleanInput(message);
-            platform = CleanInput(platform);
-
-            if (!users.Exists(u => u.ConnectionId == Context.ConnectionId))
-            {
-                AddNewUser(Context.ConnectionId, userName, platform);
-            }
-
-            Console.WriteLine("Broadcast message \"{0}\" from {1} to others.", message, Context.ConnectionId);
-            Clients.Others.broadcastMessage(userName, platform, message);
-            Clients.Others.broadcastDircMessage(Context.ConnectionId, message);
         }
 
         public void SendDircMessage(string message)
@@ -89,18 +73,6 @@ namespace WebSocketSpike.LocalWebServer
             Clients.Caller.broadcastHubMessage("Welcome to DIRC!");
         }
 
-        private static string CleanInput(string input)
-        {
-            return Regex.Replace(input, @"[^\w\s\-\+]", string.Empty);
-        }
-
-        private static string CleanUserName(string userName)
-        {
-            userName = CleanInput(userName);
-            userName = userName.Length > MaxUserNameLength ? userName.Substring(0, MaxUserNameLength) : userName;
-            return userName;
-        }
-
         private void AddNewUser(string connectionId, string userName, string platform)
         {
             Console.WriteLine("User {0} on {1} registered with connectionID '{2}'.", userName, platform, connectionId);
@@ -118,13 +90,34 @@ namespace WebSocketSpike.LocalWebServer
             }
         }
 
-        public class DircUser
+        [Obsolete("Send is deprecated, please use Register and SendDircMessage instead.")]
+        public void Send(string userName, string platform, string message)
         {
-            public string UserName { get; set; }
+            userName = CleanUserName(userName);
+            message = CleanInput(message);
+            platform = CleanInput(platform);
 
-            public string Platform { get; set; }
+            if (!users.Exists(u => u.ConnectionId == Context.ConnectionId))
+            {
+                AddNewUser(Context.ConnectionId, userName, platform);
+            }
 
-            public string ConnectionId { get; set; }
+            Console.WriteLine("Broadcast message \"{0}\" from {1} to others.", message, Context.ConnectionId);
+            Clients.Others.broadcastMessage(userName, platform, message);
+            Clients.Others.broadcastDircMessage(Context.ConnectionId, message);
+        }
+
+        private static string CleanInput(string input)
+        {
+            //return Regex.Replace(input, @"[^\w\s\-\+]", string.Empty);
+            return HttpUtility.HtmlEncode(input);
+        }
+
+        private static string CleanUserName(string userName)
+        {
+            userName = CleanInput(userName);
+            userName = userName.Length > MaxUserNameLength ? userName.Substring(0, MaxUserNameLength) : userName;
+            return userName;
         }
     }
 }

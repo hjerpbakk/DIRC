@@ -2,7 +2,7 @@
 using Microsoft.Owin.Cors;
 using Owin;
 
-namespace WebSocketSpike.LocalWebServer
+namespace DIRCServer.Server
 {
     internal class Startup
     {
@@ -29,7 +29,7 @@ namespace WebSocketSpike.LocalWebServer
                     };
 
                     // Run the SignalR pipeline. We're not using MapSignalR
-                    // since this branch is already runs under the "/signalr"
+                    // since this branch already runs under the "/signalr"
                     // path.
                     map.RunSignalR(hubConfiguration);
                 });
