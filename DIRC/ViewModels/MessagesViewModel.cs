@@ -7,25 +7,31 @@ using DIRC.IRC;
 using System.Threading.Tasks;
 using DIRC.View;
 using System.Linq;
-using GalaSoft.MvvmLight.Messaging;
 
 namespace DIRC.ViewModels {
 	public class MessagesViewModel : ViewModelBase {
 		readonly string userName;
 		readonly Command sendCommand;
+		readonly Command showUsers;
 		readonly ObservableCollection<DIRCMessage> messages;
 		readonly Client client;
-		readonly INavigation navigation;
 
+		string usersText;
 		string message;
 		ObservableCollection<DircUser> users;
 
 		public MessagesViewModel(INavigation navigation, string userName) {
-			this.navigation = navigation;
 			this.userName = userName;
 			client = new Client(userName);
 			sendCommand = new Command(() => Send(), () => !string.IsNullOrEmpty(message));
+			showUsers = new Command(() => { 
+					var userList = new UserListView();
+					userList.BindingContext = this;
+					navigation.PushAsync(userList);	 
+				}
+			);
 			messages = new ObservableCollection<DIRCMessage>();
+			UsersText = "Users";
 		}
 
 		public string Title { get { return userName; } }
@@ -42,24 +48,33 @@ namespace DIRC.ViewModels {
 			}
 		}
 
+		public string UsersText {
+			get { return usersText; }
+			set {
+				usersText = value;
+				OnPropertyChanged();
+			}
+		}
+
 		public Command SendCommand { get { return sendCommand; } }
+		public Command ShowUsers { get { return showUsers; } }
 
 		public async Task Init() {
 			try {
 				client.OnMessageReceived += HandleOnMessageReceived;
 				client.OnConnectedToHub += (sender, theUsers) => {
 					Users = new ObservableCollection<DircUser>(theUsers);
-					Messenger.Default.Send(Users.Count);
+					UpdateUsersText();
 				};
 				client.OnNewUser += (sender, user) => {
 					Users.Add(user);
-					Messenger.Default.Send(Users.Count);
+					UpdateUsersText();
 				};
 				client.OnUserLeft += (sender, id) => {
 					var user = Users.SingleOrDefault(u => u.ConnectionId == id);
 					if (user != null) {
 						Users.Remove(user);
-						Messenger.Default.Send(Users.Count);
+						UpdateUsersText();
 					}
 				};
 				await client.Connect();
@@ -87,6 +102,10 @@ namespace DIRC.ViewModels {
 
 		void HandleOnMessageReceived(object sender, string theMessage) {
 			ShowMessage(new DIRCMessage{ Text = theMessage, FromOthers = true });
+		}
+
+		void UpdateUsersText() {
+			UsersText = Users.Count + " Users";
 		}
 	}
 

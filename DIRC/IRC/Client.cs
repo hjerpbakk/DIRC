@@ -10,6 +10,8 @@ namespace DIRC.IRC
 {
     public class Client
     {
+		const string MyConnectionId = "MyConnectionId";
+
 		public event EventHandler<string> OnMessageReceived;
 		public event EventHandler<ICollection<DircUser>> OnConnectedToHub;
 		public event EventHandler<DircUser> OnNewUser;
@@ -52,6 +54,10 @@ namespace DIRC.IRC
 				foreach (var json in currentUsers) {
 					var user = JsonConvert.DeserializeObject<DircUser>(json.ToString());
 					users.Add(user.ConnectionId, user);
+				}
+							
+				if(!users.ContainsKey(MyConnectionId)) {
+					users.Add(MyConnectionId, new DircUser { ConnectionId = MyConnectionId, UserName = userName, Platform = platform });
 				}
                 
 				var connectedToHub = OnConnectedToHub;

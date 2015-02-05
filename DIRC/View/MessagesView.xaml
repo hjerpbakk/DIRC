@@ -4,6 +4,9 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:local="clr-namespace:DIRC;assembly=DIRC" 
 	x:Class="DIRC.View.MessagesView" Title="{Binding Title}">
+	<ContentPage.ToolbarItems>
+    	<ToolbarItem Text="{Binding UsersText}" Command="{Binding ShowUsers}" />
+	</ContentPage.ToolbarItems>
 	<StackLayout VerticalOptions="FillAndExpand">
 		<local:CustomListView x:Name="messages" ItemsSource="{Binding Messages}" ItemSelected="MessageSelected" >
 			<ListView.ItemTemplate>
