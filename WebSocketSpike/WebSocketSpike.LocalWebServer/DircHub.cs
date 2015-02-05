@@ -10,58 +10,6 @@ namespace WebSocketSpike.LocalWebServer
     {
         private static List<DircUser> users = new List<DircUser>();
 
-        public void Send(string userName, string platform, string message)
-        {
-            if (!users.Exists(u => u.ConnectionId == Context.ConnectionId))
-            {
-                AddNewUser(Context.ConnectionId, userName, platform);
-            }
-
-            message = CleanMessage(message);
-
-            Console.WriteLine("Broadcast message \"{0}\" from {1} to others.", message, Context.ConnectionId);
-            Clients.Others.broadcastMessage(userName, platform, message);
-            Clients.Others.broadcastDircMessage(Context.ConnectionId, message);
-        }
-
-        public void SendDircMessage(string message)
-        {
-            if (!users.Exists(u => u.ConnectionId == Context.ConnectionId))
-            {
-                Console.WriteLine("Unauthorized user ({0}) attempted to send '{1}' to others.", Context.ConnectionId, message);
-                return;
-            }
-
-            message = CleanMessage(message);
-
-            Console.WriteLine("Broadcast message \"{0}\" from {1} to others.", message, Context.ConnectionId);
-            Clients.Others.broadcastDircMessage(Context.ConnectionId, message);
-        }
-
-        private string CleanMessage(string message)
-        {
-            return Regex.Replace(message, @"[^\w\s\-\+]", "");
-        }
-
-        public void Register(string userName, string platform)
-        {
-            if (!users.Exists(u => u.ConnectionId == Context.ConnectionId))
-            {
-                Clients.Caller.broadcastActiveUsers(users.ToArray());
-                AddNewUser(Context.ConnectionId, userName, platform);
-            }
-
-            Clients.Caller.broadcastHubMessage("Welcome to DIRC!");
-        }
-
-        private void AddNewUser(string connectionId, string userName, string platform)
-        {
-            Console.WriteLine("User {0} on {1} registered with connectionID '{2}'.", userName, platform, connectionId);
-            var newUser = new DircUser { UserName = userName, Platform = platform, ConnectionId = connectionId };
-            users.Add(newUser);
-            Clients.Others.broadcastNewUser(newUser.ConnectionId, newUser.UserName, newUser.Platform);
-        }
-
         public override Task OnConnected()
         {
             Console.WriteLine("Connection from {0}", Context.ConnectionId);
@@ -76,6 +24,76 @@ namespace WebSocketSpike.LocalWebServer
             return base.OnDisconnected(stopCalled);
         }
 
+        public override Task OnReconnected()
+        {
+            Console.WriteLine("OnReconnected from {0}", Context.ConnectionId);
+            return base.OnReconnected();
+        }
+
+        public void Send(string userName, string platform, string message)
+        {
+            userName = CleanUserName(userName);
+            message = CleanInput(message);
+            platform = CleanInput(platform);
+
+            if (!users.Exists(u => u.ConnectionId == Context.ConnectionId))
+            {
+                AddNewUser(Context.ConnectionId, userName, platform);
+            }
+
+            Console.WriteLine("Broadcast message \"{0}\" from {1} to others.", message, Context.ConnectionId);
+            Clients.Others.broadcastMessage(userName, platform, message);
+            Clients.Others.broadcastDircMessage(Context.ConnectionId, message);
+        }
+
+        public void SendDircMessage(string message)
+        {
+            message = CleanInput(message);
+
+            if (!users.Exists(u => u.ConnectionId == Context.ConnectionId))
+            {
+                Console.WriteLine("Unauthorized user ({0}) attempted to send '{1}' to others.", Context.ConnectionId, message);
+                return;
+            }
+
+            Console.WriteLine("Broadcast message \"{0}\" from {1} to others.", message, Context.ConnectionId);
+            Clients.Others.broadcastDircMessage(Context.ConnectionId, message);
+        }
+
+        public void Register(string userName, string platform)
+        {
+            userName = CleanUserName(userName);
+            platform = CleanInput(platform);
+
+            if (!users.Exists(u => u.ConnectionId == Context.ConnectionId))
+            {
+                Clients.Caller.broadcastActiveUsers(users.ToArray());
+                AddNewUser(Context.ConnectionId, userName, platform);
+            }
+
+            Clients.Caller.broadcastHubMessage("Welcome to DIRC!");
+        }
+
+        private static string CleanInput(string input)
+        {
+            return Regex.Replace(input, @"[^\w\s\-\+]", string.Empty);
+        }
+
+        private static string CleanUserName(string userName)
+        {
+            userName = CleanInput(userName);
+            userName = userName.Length > 10 ? userName.Substring(0, 10) : userName;
+            return userName;
+        }
+
+        private void AddNewUser(string connectionId, string userName, string platform)
+        {
+            Console.WriteLine("User {0} on {1} registered with connectionID '{2}'.", userName, platform, connectionId);
+            var newUser = new DircUser { UserName = userName, Platform = platform, ConnectionId = connectionId };
+            users.Add(newUser);
+            Clients.Others.broadcastNewUser(newUser.ConnectionId, newUser.UserName, newUser.Platform);
+        }
+
         private void RemoveUser(string connectionId)
         {
             if (users.Exists(u => u.ConnectionId == connectionId))
@@ -85,16 +103,12 @@ namespace WebSocketSpike.LocalWebServer
             }
         }
 
-        public override Task OnReconnected()
-        {
-            Console.WriteLine("OnReconnected from {0}", Context.ConnectionId);
-            return base.OnReconnected();
-        }
-
         public class DircUser
         {
             public string UserName { get; set; }
+
             public string Platform { get; set; }
+
             public string ConnectionId { get; set; }
         }
     }
