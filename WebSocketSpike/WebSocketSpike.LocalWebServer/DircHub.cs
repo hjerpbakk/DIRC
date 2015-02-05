@@ -59,6 +59,12 @@ namespace WebSocketSpike.LocalWebServer
             }
 
             Console.WriteLine("Broadcast message \"{0}\" from {1} to others.", message, Context.ConnectionId);
+
+            // backwards compatibility
+            var userName = users.Find(u => u.ConnectionId == Context.ConnectionId).UserName;
+            var platform = users.Find(u => u.ConnectionId == Context.ConnectionId).Platform;
+            Clients.Others.broadcastMessage(userName, platform, message);
+
             Clients.Others.broadcastDircMessage(Context.ConnectionId, message);
         }
 
