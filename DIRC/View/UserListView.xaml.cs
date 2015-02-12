@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace DIRC.View {
-	public partial class MessageView : ContentPage {
-		public MessageView(string message) {
+	public partial class UserListView : ContentPage {
+		public UserListView() {
 			InitializeComponent();
-			Message.Text = message;
 		}
 	}
 }

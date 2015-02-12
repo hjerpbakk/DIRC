@@ -42,22 +42,17 @@
     <Compile Include="ViewModels\MessagesViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="IRC\Client.cs" />
-    <Compile Include="View\MessageView.xaml.cs">
-      <DependentUpon>MessageView.xaml</DependentUpon>
+    <Compile Include="CustomListView.cs" />
+    <Compile Include="RoundedBoxView.cs" />
+    <Compile Include="CustomListViewCell.cs" />
+    <Compile Include="View\UserListView.xaml.cs">
+      <DependentUpon>UserListView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <Import Project="packages\Xamarin.Forms.1.3.1.6296\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('packages\Xamarin.Forms.1.3.1.6296\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
+  <Import Project="packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Import Project="packages\Xamarin.Forms.1.3.2.6316\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('packages\Xamarin.Forms.1.3.2.6316\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
   <ItemGroup>
-    <Reference Include="Xamarin.Forms.Core">
-      <HintPath>packages\Xamarin.Forms.1.3.1.6296\lib\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Xaml">
-      <HintPath>packages\Xamarin.Forms.1.3.1.6296\lib\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>packages\Newtonsoft.Json.6.0.4\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http">
       <HintPath>packages\Microsoft.Net.Http.2.2.28\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.dll</HintPath>
     </Reference>
@@ -70,13 +65,30 @@
     <Reference Include="Microsoft.AspNet.SignalR.Client">
       <HintPath>packages\Microsoft.AspNet.SignalR.Client.2.2.0\lib\portable-net45+sl5+netcore45+wp8+wp81\Microsoft.AspNet.SignalR.Client.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Forms.Core">
+      <HintPath>packages\Xamarin.Forms.1.3.2.6316\lib\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Xaml">
+      <HintPath>packages\Xamarin.Forms.1.3.2.6316\lib\portable-win+net45+wp80+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Components\signalr-2.1.2\lib\ios-unified\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight">
+      <HintPath>packages\Portable.MvvmLightLibs.5.0.2.0\lib\portable-net45+wp8+wpa81+netcore45+monoandroid+monotouch\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras">
+      <HintPath>packages\Portable.MvvmLightLibs.5.0.2.0\lib\portable-net45+wp8+wpa81+netcore45+monoandroid+monotouch\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\" />
-    <Folder Include="Resources\" />
     <Folder Include="ViewModels\" />
     <Folder Include="IRC\" />
   </ItemGroup>
@@ -87,10 +99,9 @@
     <EmbeddedResource Include="View\LogonView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DIRC-logo-raud.png" />
-    <EmbeddedResource Include="View\MessageView.xaml">
+    <EmbeddedResource Include="Resources\dirc.png" />
+    <EmbeddedResource Include="View\UserListView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
->>>>>>> milestone2
   </ItemGroup>
 </Project>

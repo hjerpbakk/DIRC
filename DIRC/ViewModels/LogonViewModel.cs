@@ -11,26 +11,32 @@ namespace DIRC {
 		readonly INavigation navigation;
 
 		string userName;
-		bool m_longonDisabled;
+
+		bool m_logonEnabled;
+
 
 		public LogonViewModel(INavigation navigation) {
 			this.navigation = navigation;
 			logonCommand = new Command(Logon);
 		}
 
-		public bool logonEnabled{
-			get{ return m_longonDisabled; }
-			set {
-				m_longonDisabled = value;
-				OnPropertyChanged ();
+
+		public bool longonEnabled{
+			get { return m_logonEnabled; }
+			set{
+				m_logonEnabled = value;
+				OnPropertyChanged();
 			}
+
+
 		}
 
 		public string UserName {
 			get { return userName; }
 			set {
 				userName = value;
-				logonEnabled = !String.IsNullOrEmpty (userName);
+
+				longonEnabled = !String.IsNullOrEmpty (UserName);
 				OnPropertyChanged();
 			}
 		}
