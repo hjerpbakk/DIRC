@@ -5,8 +5,11 @@ API
 ![API](img/dirc-api.png)
 
 
+
 User (JSON) {
 	string ConnectionId,
 	string platform,
 	string userName
 }
+
+![API](Images/Approved by Runar.PNGg)
