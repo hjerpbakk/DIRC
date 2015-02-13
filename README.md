@@ -1,5 +1,7 @@
 # DIRC (DIPS IRC)
-DIPS IRC
+
+![API](img/dirc@2x.png)
+
 You can find the server code at https://github.com/Hammerstad/DIRCServer
 API
 ![API](img/dirc-api.png)
@@ -12,4 +14,4 @@ User (JSON) {
 	string userName
 }
 
-![API](Images/Approved by Runar.PNGg)
+![API](img/Approved.PNG)
